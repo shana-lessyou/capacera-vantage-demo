@@ -1265,6 +1265,186 @@ function genPptxCriteria(app){
 
 function safeFileName(s){return(s||'Export').replace(/[^a-zA-Z0-9]/g,'_').substring(0,30)}
 
+// ─── GUIDED TOUR ─────────────────────────────────────────────────────────────
+var TOUR_PHYSICAL_URL='https://capacera.com/#physical';   // TODO: update
+var TOUR_PARTNER_URL ='https://capacera.com/#design-partner'; // TODO: update
+
+function _tourScenBtn(mode){return Array.from(document.querySelectorAll('.s-tab')).find(function(b){return b.getAttribute('onclick')&&b.getAttribute('onclick').indexOf("'"+mode+"'")>-1});}
+function _tourTabBtn(domain){
+  if(domain==='all')return document.querySelector('.cxo-tab');
+  return Array.from(document.querySelectorAll('.cxo-tab')).find(function(b){return b.getAttribute('onclick')&&b.getAttribute('onclick').indexOf("'"+domain+"'")>-1});
+}
+
+var tourSteps=[
+  {title:'AcmeSaaS Acquisition Simulation',
+   text:'Archer Partners is evaluating AcmeSaaS — a $2.4M EBITDA SaaS platform — for acquisition at 6.0x EBITDA baseline. This is a live Vantage Physical. Walk through the full analysis in under 3 minutes.',
+   target:null,
+   enter:function(){
+     var b=_tourScenBtn('macc');if(b)setScenario('macc',b);
+     var t=_tourTabBtn('all');if(t)setTab('all',t);
+     closeSimTray();window.scrollTo({top:0,behavior:'smooth'});
+   }
+  },
+  {title:'Valuation Envelope',
+   text:'Vantage calculates a real-time floor-to-ceiling range from five CXO signal layers. AcmeSaaS has a $9.1M floor and $22.1M ceiling — a $13M spread. That spread is the acquisition opportunity.',
+   target:'.env-wrap',
+   enter:function(){
+     var el=document.querySelector('.env-wrap')||document.querySelector('.env-card');
+     if(el)el.scrollIntoView({behavior:'smooth',block:'center'});
+   }
+  },
+  {title:'Remediation Simulator',
+   text:'Each lever shows its exact impact on the valuation. "Retain Vantage Partners" is the single highest-ROI action — +0.4x to the floor. Toggle it and watch the envelope move.',
+   target:'#simTray',
+   enter:function(){
+     openSimTray();
+     setTimeout(function(){var cb=document.getElementById('s4');if(cb&&!cb.checked){cb.checked=true;calcSim();}},450);
+   },
+   leave:function(){
+     var cb=document.getElementById('s4');if(cb&&cb.checked){cb.checked=false;calcSim();}
+     closeSimTray();
+   }
+  },
+  {title:'Two Scenario Lenses',
+   text:'Buy-Side M&A and Post-Acquisition Monitoring use the same signals but ask different questions. Switch lenses and the entire page — valuation framing, decisions, data room context — reconfigures instantly.',
+   target:'.scen-bar',
+   enter:function(){
+     var el=document.querySelector('.scen-bar');
+     if(el)el.scrollIntoView({behavior:'smooth',block:'center'});
+   }
+  },
+  {title:'Financial Signals',
+   text:'Cash flow consistency, EBITDA quality, and governance gaps — pre-loaded from structured intake, no manual upload. The CFO layer tells you exactly where the numbers are soft before you sign.',
+   target:'#sec-cfo',
+   enter:function(){
+     var b=_tourScenBtn('macc');if(b)setScenario('macc',b);
+     var t=_tourTabBtn('cfo');if(t)setTab('cfo',t);
+     setTimeout(function(){var el=document.getElementById('sec-cfo');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});},300);
+   }
+  },
+  {title:'Technology Risk',
+   text:'Application portfolio compression, cloud waste, and automation deficit combine for −1.3x floor compression. These are the numbers that justify adjusting your offer — and that the target can remediate post-close.',
+   target:'#sec-cto',
+   enter:function(){
+     var t=_tourTabBtn('cto');if(t)setTab('cto',t);
+     setTimeout(function(){var el=document.getElementById('sec-cto');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});},300);
+   }
+  },
+  {title:'CXO Adviser',
+   text:'Every domain has a live AI adviser that knows the company data. Ask anything — or run a guided scenario to generate a board-ready business case, project plan, or vendor scorecard in minutes.',
+   target:'#advDrawer',
+   enter:function(){
+     var t=_tourTabBtn('all');if(t)setTab('all',t);
+     openAdviser('cto');
+   },
+   leave:function(){
+     var o=document.getElementById('advOverlay'),d=document.getElementById('advDrawer');
+     if(o)o.classList.remove('open');if(d)d.classList.remove('open');
+   }
+  },
+  {title:'Ready to see this on a real company?',
+   text:'Vantage delivers a full Frictionless Physical in 48 hours — structured data intake, live signals, and adviser access from day one.',
+   target:null,cta:true,
+   enter:function(){
+     var o=document.getElementById('advOverlay'),d=document.getElementById('advDrawer');
+     if(o)o.classList.remove('open');if(d)d.classList.remove('open');
+   }
+  }
+];
+
+var tourState={active:false,step:0};
+
+function startTour(){tourState.active=true;tourState.step=0;document.getElementById('tourOverlay').style.display='block';_tourRender();}
+
+function tourNext(){
+  var cur=tourSteps[tourState.step];if(cur.leave)cur.leave();
+  if(tourState.step>=tourSteps.length-1){tourEnd();return;}
+  tourState.step++;_tourRender();
+}
+function tourPrev(){if(tourState.step===0)return;tourState.step--;_tourRender();}
+
+function tourEnd(){
+  tourState.active=false;
+  ['tourOverlay','tourSpot','tourCard'].forEach(function(id){var el=document.getElementById(id);if(el)el.style.display='none';});
+  var cur=tourSteps[tourState.step];if(cur&&cur.leave)cur.leave();
+  closeSimTray();
+  var o=document.getElementById('advOverlay'),d=document.getElementById('advDrawer');
+  if(o)o.classList.remove('open');if(d)d.classList.remove('open');
+}
+
+function _tourSpot(targetEl){
+  var spot=document.getElementById('tourSpot');
+  if(!targetEl){spot.style.display='none';return;}
+  spot.style.display='block';
+  setTimeout(function(){
+    var r=targetEl.getBoundingClientRect(),pad=12;
+    spot.style.left=(r.left-pad)+'px';spot.style.top=(r.top-pad)+'px';
+    spot.style.width=(r.width+pad*2)+'px';spot.style.height=(r.height+pad*2)+'px';
+  },380);
+}
+
+function _tourCard(stepIdx,targetEl){
+  var card=document.getElementById('tourCard');
+  var s=tourSteps[stepIdx];
+  var isLast=stepIdx===tourSteps.length-1;
+  card.innerHTML=
+    '<div class="tc-prog">Step '+(stepIdx+1)+' of '+tourSteps.length+'</div>'+
+    '<div class="tc-title">'+s.title+'</div>'+
+    '<div class="tc-text">'+s.text+'</div>'+
+    (s.cta?'<div class="tc-ctas"><a href="'+TOUR_PHYSICAL_URL+'" class="tc-cta1">Start your free Physical →</a><a href="'+TOUR_PARTNER_URL+'" class="tc-cta2">Become a design partner →</a></div>':'')+
+    '<div class="tc-nav">'+
+      (stepIdx>0?'<button class="tc-back" onclick="tourPrev()">← Back</button>':'')+
+      '<div style="margin-left:auto;display:flex;gap:8px">'+
+        '<button class="tc-exit" onclick="tourEnd()">Exit tour</button>'+
+        (!isLast?'<button class="tc-fwd" onclick="tourNext()">Next →</button>':'')+
+      '</div>'+
+    '</div>';
+  card.style.display='block';
+  if(!targetEl){
+    card.style.cssText='display:block;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:1002;width:420px;max-width:92vw;background:#fff;border-radius:16px;padding:32px 36px;box-shadow:0 28px 80px rgba(0,0,0,0.35),0 0 0 1px rgba(0,0,0,0.05)';
+  } else {
+    card.style.cssText='display:block;position:fixed;z-index:1002;width:380px;max-width:92vw;background:#fff;border-radius:16px;padding:24px 28px;box-shadow:0 24px 72px rgba(0,0,0,0.32),0 0 0 1px rgba(0,0,0,0.05)';
+    setTimeout(function(){
+      var r=targetEl.getBoundingClientRect(),cw=card.offsetWidth||380,ch=card.offsetHeight||260;
+      var vw=window.innerWidth,vh=window.innerHeight,pad=16,left,top;
+      if(r.right+cw+pad<vw){left=r.right+pad;top=Math.max(pad,Math.min(r.top,vh-ch-pad));}
+      else if(r.left-cw-pad>0){left=r.left-cw-pad;top=Math.max(pad,Math.min(r.top,vh-ch-pad));}
+      else if(r.bottom+ch+pad<vh){left=Math.max(pad,r.left);top=r.bottom+pad;}
+      else{left=Math.max(pad,r.left);top=Math.max(pad,r.top-ch-pad);}
+      card.style.left=left+'px';card.style.top=top+'px';
+    },390);
+  }
+}
+
+function _tourRender(){
+  var s=tourSteps[tourState.step];
+  if(s.enter)s.enter();
+  var targetEl=s.target?document.querySelector(s.target):null;
+  _tourSpot(targetEl);
+  _tourCard(tourState.step,targetEl);
+}
+
+function _tourInit(){
+  document.body.insertAdjacentHTML('beforeend',
+    '<div id="tourOverlay" style="display:none;position:fixed;inset:0;z-index:999;pointer-events:none"></div>'+
+    '<div id="tourSpot" style="display:none;position:fixed;z-index:1000;border-radius:10px;box-shadow:0 0 0 9999px rgba(10,15,40,0.72);pointer-events:none;transition:left .3s ease,top .3s ease,width .3s ease,height .3s ease"></div>'+
+    '<div id="tourCard" style="display:none"></div>');
+  var css=document.createElement('style');
+  css.textContent=
+    '.tc-prog{font-size:11px;color:var(--tmu);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}'+
+    '.tc-title{font-family:var(--fd);font-size:20px;font-weight:600;color:var(--navy);margin-bottom:10px;line-height:1.3}'+
+    '.tc-text{font-size:14px;color:var(--tm);line-height:1.65;margin-bottom:20px}'+
+    '.tc-ctas{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}'+
+    '.tc-cta1,.tc-cta2{display:block;text-decoration:none;padding:13px 20px;border-radius:var(--rp);font-size:14px;font-weight:500;text-align:center;font-family:var(--fb);transition:opacity .15s}'+
+    '.tc-cta1{background:var(--navy);color:#fff}.tc-cta1:hover{opacity:.85}'+
+    '.tc-cta2{background:var(--gold);color:var(--navy)}.tc-cta2:hover{opacity:.85}'+
+    '.tc-nav{display:flex;align-items:center}'+
+    '.tc-back{background:none;border:1px solid var(--bd);color:var(--tm);padding:8px 16px;border-radius:var(--rp);font-size:13px;cursor:pointer;font-family:var(--fb)}.tc-back:hover{border-color:var(--navy);color:var(--navy)}'+
+    '.tc-fwd{background:var(--navy);color:#fff;border:none;padding:9px 20px;border-radius:var(--rp);font-size:13px;font-weight:500;cursor:pointer;font-family:var(--fb)}.tc-fwd:hover{opacity:.85}'+
+    '.tc-exit{background:none;border:none;color:var(--tmu);font-size:12px;cursor:pointer;font-family:var(--fb);padding:8px}.tc-exit:hover{color:var(--text)}';
+  document.head.appendChild(css);
+}
+
 // ─── GHL DOM-READY INIT ───────────────────────────────────────────────────
 // GHL custom HTML blocks embed our fragment inside their own page shell.
 // Scripts may execute before all DOM elements are parsed.
@@ -1282,6 +1462,7 @@ ghlReady(function(){
     var el=document.getElementById(id);
     if(el&&el.parentNode!==document.body)document.body.appendChild(el);
   });
+  _tourInit();
   // Run all DOM-dependent init
   renderEnv(BASE-bC,BASE+bE);
   buildSim();
