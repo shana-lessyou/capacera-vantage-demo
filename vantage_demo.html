@@ -1,0 +1,723 @@
+<!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><div id="custom-code-qb_XLlsvxU" class="custom-code-container ccustom-code-qb_XLlsvxU"><style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#1C2B4A;--navy-mid:#253561;--navy-lt:#3a4f7a;
+  --gold:#C9A030;--gold-lt:#e0b84a;--gold-pale:#f5edd8;--gold-b:rgba(201,160,48,0.3);
+  --cream:#F7F5F0;--cream-dk:#EDEBE4;--cream-dkr:#E2DFD8;
+  --bd:rgba(40,36,28,0.1);--bdm:rgba(40,36,28,0.18);
+  --text:#1a1712;--tm:#4a4640;--tmu:#8a8680;
+  --dng:#b83030;--dng-bg:rgba(184,48,48,0.07);--dng-mid:#c84040;
+  --suc:#2a6030;--suc-bg:rgba(42,96,48,0.07);--suc-mid:#3a8040;
+  --wrn:#8a5a10;--wrn-bg:rgba(201,160,48,0.1);
+  --r:8px;--rl:14px;--rx:20px;--rp:100px;
+  --fd:'Cormorant Garamond',Georgia,serif;
+  --fb:'DM Sans',system-ui,sans-serif;
+  --shadow:0 1px 4px rgba(0,0,0,0.06);
+}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--text);font-family:var(--fb);font-size:15px;line-height:1.65;min-height:100vh}
+
+/* ─── NAV ─── */
+nav{position:sticky;top:0;z-index:400;background:var(--navy);border-bottom:2px solid var(--gold);padding:0 2rem;height:60px;display:flex;align-items:center;justify-content:space-between}
+.nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.nav-logo{width:36px;height:36px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:16px;font-weight:600;color:var(--navy)}
+.nav-names{display:flex;flex-direction:column;line-height:1.1}
+.nav-product{font-family:var(--fd);font-size:20px;font-weight:500;color:#fff;letter-spacing:0.01em}
+.nav-co{font-size:10px;color:rgba(255,255,255,0.4);letter-spacing:0.1em;text-transform:uppercase}
+.nav-right{display:flex;align-items:center;gap:12px}
+.nav-back{font-size:13px;color:rgba(255,255,255,0.55);text-decoration:none;transition:color .15s}
+.nav-back:hover{color:#fff}
+.nav-cta{background:var(--gold);color:var(--navy);font-family:var(--fb);font-size:13px;font-weight:500;padding:7px 18px;border-radius:var(--rp);text-decoration:none;transition:background .15s}
+.nav-cta:hover{background:var(--gold-lt)}
+
+/* ─── SCENARIO BAR ─── */
+.scen-bar{background:var(--navy-mid);padding:.7rem 2rem;display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap}
+.scen-lbl{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.35);flex-shrink:0}
+.scen-tabs{display:flex;gap:6px}
+.s-tab{font-size:12px;font-weight:500;padding:6px 16px;border-radius:var(--rp);cursor:pointer;border:1px solid rgba(255,255,255,0.18);color:rgba(255,255,255,0.55);background:transparent;font-family:var(--fb);transition:all .2s}
+.s-tab.active{background:var(--gold);color:var(--navy);border-color:var(--gold)}
+.scen-name{margin-left:auto;font-size:12px;color:var(--gold-lt);font-style:italic;opacity:.8}
+
+/* ─── SIMULATOR TRAY ─── */
+.sim-tray{position:fixed;left:0;top:60px;bottom:0;width:300px;background:#fff;border-right:1px solid var(--bdm);z-index:300;transform:translateX(-100%);transition:transform .3s ease;display:flex;flex-direction:column}
+.sim-tray.open{transform:translateX(0)}
+.sim-tray-hd{background:var(--navy);padding:1.1rem 1.5rem;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
+.sim-tray-t{font-family:var(--fd);font-size:16px;color:#fff}
+.sim-close-btn{background:rgba(255,255,255,0.1);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center}
+.sim-body{flex:1;overflow-y:auto;padding:1.1rem 1.25rem}
+.sim-search{width:100%;padding:8px 11px;border:1px solid var(--bdm);border-radius:var(--r);font-family:var(--fb);font-size:12px;outline:none;margin-bottom:.85rem;background:var(--cream);transition:border-color .15s}
+.sim-search:focus{border-color:var(--gold)}
+.sim-lev{padding:.75rem 0;border-bottom:1px solid var(--bd);display:flex;gap:.85rem;align-items:flex-start}
+.sim-lev:last-child{border-bottom:none}
+.sim-lev-info{flex:1}
+.sim-own-tag{font-size:9px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;padding:2px 7px;border-radius:var(--rp);margin-bottom:4px;display:inline-block}
+.sim-lev-name{font-size:12px;font-weight:500;color:var(--text);line-height:1.35;margin-bottom:2px}
+.sim-lev-det{font-size:10px;color:var(--tmu);line-height:1.4}
+.stog{position:relative;width:36px;height:20px;flex-shrink:0;margin-top:4px}
+.stog input{opacity:0;width:0;height:0;position:absolute}
+.stog-tr{position:absolute;inset:0;background:var(--cream-dk);border:1px solid var(--bdm);border-radius:10px;cursor:pointer;transition:background .2s}
+.stog input:checked~.stog-tr{background:var(--navy);border-color:var(--navy)}
+.stog-th{position:absolute;top:3px;left:3px;width:14px;height:14px;background:#fff;border-radius:50%;pointer-events:none;transition:transform .2s;box-shadow:0 1px 2px rgba(0,0,0,0.15)}
+.stog input:checked~.stog-tr .stog-th{transform:translateX(16px)}
+.sim-result{background:var(--cream);border-radius:var(--r);padding:.9rem 1.1rem;margin-top:.85rem;border:1px solid var(--bd)}
+.sim-r-lbl{font-size:9px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--tmu);margin-bottom:.5rem}
+.sim-r-row{display:flex;justify-content:space-between;margin-bottom:4px;font-size:11px}
+.sim-r-k{color:var(--tmu)}.sim-r-v{font-weight:500}
+.sim-open-btn{position:fixed;left:0;top:50%;transform:translateY(-50%);background:var(--navy);color:#fff;border:none;cursor:pointer;padding:.6rem .45rem;border-radius:0 var(--r) var(--r) 0;font-size:10px;font-weight:500;writing-mode:vertical-rl;letter-spacing:0.1em;text-transform:uppercase;z-index:299;transition:background .15s;font-family:var(--fb)}
+.sim-open-btn:hover{background:var(--navy-mid)}
+.sim-open-btn.tray-open{display:none}
+
+/* ─── MAIN ─── */
+.main{max-width:1060px;margin:0 auto;padding:0 2rem 5rem}
+
+/* ─── SECTION LABELS ─── */
+.s-ey{font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem;padding-left:2px}
+.s-ey-muted{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--tmu);margin-bottom:.5rem;padding-left:2px}
+
+/* ─── COMPANY CARD ─── */
+.co-card{background:var(--navy);border-radius:var(--rl);padding:1.5rem 1.75rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-bottom:1.25rem;margin-top:1.5rem;flex-wrap:wrap}
+.co-left{display:flex;align-items:center;gap:14px}
+.co-logo{width:46px;height:46px;border-radius:10px;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:20px;font-weight:600;color:var(--navy);flex-shrink:0}
+.co-name{font-family:var(--fd);font-size:22px;font-weight:500;color:#fff;letter-spacing:-0.01em;margin-bottom:3px}
+.co-meta{font-size:12px;color:rgba(255,255,255,0.5)}
+.co-meta span+span::before{content:" · "}
+.sp-pill{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:500;padding:5px 12px;border-radius:var(--rp);background:rgba(201,160,48,0.18);color:var(--gold-lt);border:1px solid rgba(201,160,48,0.3)}
+.sdot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse 2.2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.int-badge{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;background:rgba(42,96,48,0.22);color:#7abf88;border:1px solid rgba(42,96,48,0.3);padding:4px 10px;border-radius:var(--rp)}
+
+/* ─── METRICS ─── */
+.mrow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:1.25rem}
+.mc{background:#fff;border:1px solid var(--bd);border-radius:var(--rl);padding:1.1rem 1.25rem;box-shadow:var(--shadow)}
+.mc-lbl{font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--tmu);margin-bottom:8px}
+.mc-val{font-family:var(--fd);font-size:30px;line-height:1;letter-spacing:-0.02em;margin-bottom:4px}
+.mc-sub{font-size:11px;color:var(--tmu)}
+.cn{color:var(--navy)}.cg{color:var(--gold)}.cd{color:var(--dng)}.cs{color:var(--suc)}
+
+/* ─── CARDS ─── */
+.card{background:#fff;border:1px solid var(--bd);border-radius:var(--rl);padding:1.5rem 1.75rem;margin-bottom:1.25rem;box-shadow:var(--shadow)}
+.card-hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:1.25rem;gap:.5rem;flex-wrap:wrap}
+.card-t{font-family:var(--fd);font-size:18px;letter-spacing:-0.01em;color:var(--navy)}
+.card-s{font-size:12px;color:var(--tmu)}
+
+/* ─── ENVELOPE ─── */
+.env-ax{display:flex;justify-content:space-between;font-size:10px;color:var(--tmu);margin-bottom:5px}
+.env-tr{position:relative;height:50px;background:var(--cream);border-radius:25px;overflow:hidden;border:1px solid var(--bd)}
+.env-comp{position:absolute;top:0;height:100%;background:rgba(184,48,48,0.1);transition:all .4s ease}
+.env-exp{position:absolute;top:0;height:100%;background:rgba(42,96,48,0.1);transition:all .4s ease}
+.env-bl{position:absolute;top:9px;width:3px;height:32px;background:var(--navy);border-radius:2px;transition:left .4s ease}
+.env-fl{position:absolute;top:11px;width:2px;height:28px;background:var(--dng-mid);border-radius:1px;transition:left .4s ease}
+.env-cl{position:absolute;top:11px;width:2px;height:28px;background:var(--suc-mid);border-radius:1px;transition:left .4s ease}
+.env-lbs{position:relative;height:20px;margin-top:4px;margin-bottom:1rem}
+.env-lb{position:absolute;font-size:12px;font-weight:500;transform:translateX(-50%);transition:left .4s ease;white-space:nowrap}
+.env-ft{display:flex;gap:2rem;padding-top:1rem;border-top:1px solid var(--bd);flex-wrap:wrap}
+.ef-lbl{font-size:11px;color:var(--tmu);margin-bottom:2px}
+.ef-val{font-size:15px;font-weight:500}
+
+/* ─── DUE DILIGENCE PLAN ─── */
+.dd-card{background:#fff;border:1px solid var(--bd);border-left:3px solid var(--gold);border-radius:var(--rl);padding:1.5rem 1.75rem;margin-bottom:1.25rem;box-shadow:var(--shadow)}
+.dd-hd{display:flex;justify-content:space-between;align-items:flex-start;cursor:pointer;user-select:none;gap:1rem;flex-wrap:wrap;margin-bottom:0}
+.dd-ey{font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
+.dd-title{font-family:var(--fd);font-size:17px;color:var(--navy)}
+.dd-pills{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.dd-pill{font-size:11px;font-weight:500;padding:3px 10px;border-radius:var(--rp)}
+.dd-body{display:none;margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid var(--bd)}
+.dd-card.open .dd-body{display:block}
+.dd-step{display:flex;gap:14px;padding:.9rem 0;border-bottom:1px solid var(--bd);align-items:flex-start}
+.dd-step:last-of-type{border-bottom:none}
+.step-ico{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;margin-top:1px}
+.st-done{background:#eef5ee;color:var(--suc);border:1px solid rgba(42,96,48,0.25)}
+.st-go{background:var(--gold-pale);color:var(--wrn);border:1px solid var(--gold-b)}
+.st-wait{background:var(--cream-dk);color:var(--tmu);border:1px solid var(--bd)}
+.step-body{flex:1}
+.step-t{font-size:13px;font-weight:500;color:var(--text);margin-bottom:2px}
+.step-d{font-size:11px;color:var(--tmu);line-height:1.5}
+.step-r{flex-shrink:0;text-align:right}
+.step-status{font-size:10px;font-weight:500;padding:2px 9px;border-radius:var(--rp);display:inline-block;margin-bottom:3px}
+.step-date{font-size:10px;color:var(--tmu)}
+.roi-bar{display:flex;align-items:center;gap:14px;background:var(--suc-bg);border:1px solid rgba(42,96,48,0.2);border-radius:var(--r);padding:.85rem 1.1rem;margin-top:1rem}
+.roi-big{font-family:var(--fd);font-size:22px;font-weight:500;color:var(--suc);flex-shrink:0}
+.roi-t{font-size:13px;color:var(--suc);font-weight:500}
+.roi-s{font-size:11px;color:var(--tmu);margin-top:2px}
+
+/* ─── DATA ROOM HEALTH ─── */
+.dr-panel{background:#fff;border:1px solid var(--bd);border-radius:var(--rl);padding:1.5rem 1.75rem;margin-bottom:1.25rem;box-shadow:var(--shadow)}
+.dr-grade-circle{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:26px;font-weight:600;flex-shrink:0;background:#eef5ee;color:var(--suc);border:2px solid rgba(42,96,48,0.25)}
+.dr-grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:1.1rem 0}
+.dr-stat{background:var(--cream);border-radius:var(--r);padding:.85rem 1rem}
+.dr-stat-lbl{font-size:10px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--tmu);margin-bottom:5px}
+.dr-stat-val{font-size:16px;font-weight:500}
+.dr-stat-note{font-size:10px;color:var(--tmu);margin-top:2px}
+.dr-item{display:flex;align-items:center;justify-content:space-between;font-size:12px;padding:6px 0;border-bottom:1px solid var(--bd)}
+.dr-item:last-child{border-bottom:none}
+.dr-item-lbl{color:var(--tm)}
+.st-pill{font-size:10px;font-weight:500;padding:2px 9px;border-radius:var(--rp)}
+.st-ok{background:var(--suc-bg);color:var(--suc)}
+.st-warn{background:var(--wrn-bg);color:var(--wrn)}
+.st-miss{background:var(--dng-bg);color:var(--dng)}
+
+/* ─── CXO TABS ─── */
+.cxo-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.25rem}
+.cxo-tab{font-size:12px;font-weight:500;padding:8px 18px;border-radius:var(--rp);cursor:pointer;border:1px solid var(--bd);color:var(--tmu);background:#fff;font-family:var(--fb);transition:all .2s;display:flex;align-items:center;gap:7px;box-shadow:var(--shadow)}
+.cxo-tab:hover{border-color:var(--gold)}
+.cxo-tab.active{background:var(--navy);color:#fff;border-color:var(--navy);box-shadow:none}
+.tab-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+
+/* ─── FRICTIONLESS RATINGS ─── */
+.fr-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-bottom:1.25rem}
+.fr-card{background:#fff;border:1px solid var(--bd);border-radius:var(--rl);padding:1rem 1.1rem;box-shadow:var(--shadow);transition:opacity .2s}
+.fr-lbl{font-size:10px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--tmu);margin-bottom:6px}
+.fr-badge{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:500;padding:3px 10px;border-radius:var(--rp);margin-bottom:5px}
+.fr-score{font-size:11px;color:var(--tmu)}
+.fr-na{font-size:12px;color:var(--tmu);font-style:italic}
+.fr-na-note{font-size:10px;color:var(--tmu);margin-top:3px}
+
+/* ─── DOMAIN SECTIONS ─── */
+.domain-sec{display:none}
+.domain-sec.show{display:block}
+
+/* ─── ADVISER BUTTON ─── */
+.open-adv-btn{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;color:var(--gold);cursor:pointer;padding:6px 14px;border:1px solid var(--gold-b);border-radius:var(--rp);background:rgba(201,160,48,0.07);transition:all .15s;font-family:var(--fb)}
+.open-adv-btn:hover{background:rgba(201,160,48,0.15)}
+
+/* ─── BARS ─── */
+.dr-row{margin-bottom:11px}
+.dr-row:last-child{margin-bottom:0}
+.dr-top{display:flex;justify-content:space-between;margin-bottom:5px}
+.dr-n{font-size:13px;color:var(--text)}
+.dr-d{font-size:12px;font-weight:500}
+.bar-bg{height:4px;background:var(--cream-dk);border-radius:2px;overflow:hidden}
+.bar-f{height:100%;border-radius:2px}
+
+/* ─── DATA TABLES ─── */
+.dt-filter-row{display:flex;gap:8px;margin-bottom:.85rem;flex-wrap:wrap}
+.dt-filter{flex:1;min-width:150px;padding:8px 12px;border:1px solid var(--bdm);border-radius:var(--rl);font-family:var(--fb);font-size:12px;outline:none;background:var(--cream);transition:border-color .15s}
+.dt-filter:focus{border-color:var(--gold)}
+.dt-select{padding:8px 12px;border:1px solid var(--bdm);border-radius:var(--rl);font-family:var(--fb);font-size:12px;outline:none;background:#fff;cursor:pointer}
+.dt-count{font-size:11px;color:var(--tmu);margin-bottom:.65rem}
+.dt-scroll{max-height:290px;overflow-y:auto;border:1px solid var(--bd);border-radius:var(--r)}
+.dt-table{width:100%;border-collapse:collapse;font-size:12px}
+.dt-table thead{position:sticky;top:0;background:#fff;z-index:2}
+.dt-table th{font-size:9px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--tmu);padding:8px 10px;text-align:left;border-bottom:1px solid var(--bd);white-space:nowrap}
+.dt-table td{padding:8px 10px;border-bottom:1px solid var(--bd);vertical-align:middle}
+.dt-table tr:last-child td{border-bottom:none}
+.dt-table tr:hover td{background:var(--cream)}
+.hbw{display:flex;align-items:center;gap:6px}
+.hb-bg{width:46px;height:3px;background:var(--cream-dk);border-radius:2px;flex-shrink:0}
+.hb-f{height:100%;border-radius:2px}
+.rpill{font-size:9px;font-weight:500;padding:2px 7px;border-radius:var(--rp);white-space:nowrap}
+.r-crit{background:rgba(184,48,48,0.12);color:var(--dng)}
+.r-high{background:rgba(180,90,20,0.12);color:#9a4a10}
+.r-med{background:rgba(201,160,48,0.15);color:#7a5a10}
+.r-low{background:rgba(42,96,48,0.1);color:var(--suc)}
+.r-flag{background:rgba(184,48,48,0.1);color:var(--dng);font-size:9px;padding:2px 7px;border-radius:var(--rp)}
+.r-ok{background:rgba(42,96,48,0.1);color:var(--suc);font-size:9px;padding:2px 7px;border-radius:var(--rp)}
+
+/* ─── DECISIONS ─── */
+.sdp{background:#fff;border:1px solid var(--bd);border-radius:var(--rl);margin-bottom:1.25rem;overflow:hidden;box-shadow:var(--shadow)}
+.sdp-hd{padding:1.25rem 1.75rem;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
+.sdp-title{font-family:var(--fd);font-size:18px;color:var(--navy)}
+.sdp-sub{font-size:12px;color:var(--tmu);margin-top:2px}
+.dec{border-bottom:1px solid var(--bd)}
+.dec:last-child{border-bottom:none}
+.dec-q{display:flex;justify-content:space-between;align-items:center;padding:1.1rem 1.75rem;cursor:pointer;transition:background .15s;gap:1rem;user-select:none}
+.dec-q:hover{background:rgba(247,245,240,0.8)}
+.dec-left{display:flex;align-items:center;gap:14px;flex:1}
+.dec-num{width:26px;height:26px;border-radius:50%;background:var(--cream-dk);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:var(--tmu);flex-shrink:0}
+.dec-q-text{font-size:13px;font-weight:500;color:var(--text);line-height:1.4}
+.dec-meta{font-size:11px;color:var(--tmu);margin-top:2px}
+.dec-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.dec-tag{font-size:11px;font-weight:500;padding:3px 10px;border-radius:var(--rp)}
+.t-opp{background:var(--suc-bg);color:var(--suc)}
+.t-risk{background:var(--dng-bg);color:var(--dng)}
+.t-esc{background:var(--wrn-bg);color:var(--wrn)}
+.dec-chev{font-size:12px;color:var(--tmu);transition:transform .25s}
+.dec.open .dec-chev{transform:rotate(180deg)}
+.dec-body{display:none;padding:0 1.75rem 1.5rem;border-top:1px solid var(--bd);background:rgba(247,245,240,0.4)}
+.dec.open .dec-body{display:block}
+.dec-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;margin-top:1.1rem}
+.col-t{font-size:10px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px}
+.col-t.pro{color:var(--suc)}.col-t.con{color:var(--dng)}
+.dec-list{list-style:none;display:flex;flex-direction:column;gap:7px}
+.dec-list li{font-size:12px;color:var(--tm);display:flex;align-items:flex-start;gap:8px;line-height:1.45}
+.ldot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.ldot.pro{background:var(--suc)}.ldot.con{background:var(--dng)}
+.ev-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:1.1rem;padding-top:1.1rem;border-top:1px solid var(--bd)}
+.ev-box{background:#fff;border:1px solid var(--bd);border-radius:var(--r);padding:.75rem 1rem;flex:1;min-width:120px}
+.ev-box-lbl{font-size:9px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--tmu);margin-bottom:5px}
+.ev-box-val{font-family:var(--fd);font-size:20px;font-weight:500}
+.ev-box-note{font-size:10px;color:var(--tmu);margin-top:2px}
+.ripple-row{margin-top:1.1rem;padding-top:1.1rem;border-top:1px solid var(--bd)}
+.ripple-t{font-size:10px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--tmu);margin-bottom:9px}
+.ripple-items{display:flex;flex-direction:column;gap:7px}
+.ripple-item{display:flex;align-items:flex-start;gap:9px}
+.own-pill{font-size:9px;font-weight:500;padding:2px 8px;border-radius:var(--rp);flex-shrink:0;margin-top:2px}
+.ripple-desc{font-size:11px;color:var(--tm);line-height:1.45}
+.dec-explore{margin-top:.85rem;padding-top:.85rem;border-top:1px solid var(--bd);display:flex;justify-content:flex-end}
+
+/* ─── AUDIT CHAIN ─── */
+.ac{display:flex;align-items:center;flex-wrap:wrap;gap:4px;margin:.85rem 0}
+.ac-step{background:var(--cream);border:1px solid var(--bd);border-radius:var(--r);padding:7px 12px;font-size:11px;color:var(--tm);text-align:center}
+.ac-step strong{display:block;font-size:13px;font-weight:500;color:var(--text)}
+.ac-arr{font-size:12px;color:var(--tmu)}
+.ac-res{background:var(--navy);border-radius:var(--r);padding:7px 12px;font-size:11px;color:rgba(255,255,255,0.7)}
+.ac-res strong{display:block;font-size:13px;font-weight:500;color:#fff}
+
+/* ─── ADVISER DRAWER ─── */
+.adv-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.2);z-index:450}
+.adv-overlay.open{display:block}
+.adv-drawer{position:fixed;top:0;right:0;bottom:0;width:460px;max-width:96vw;background:#fff;box-shadow:-4px 0 24px rgba(0,0,0,0.1);z-index:451;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .3s ease}
+.adv-drawer.open{transform:translateX(0)}
+.adv-hd{background:var(--navy);padding:1.25rem 1.5rem;display:flex;align-items:flex-start;justify-content:space-between;flex-shrink:0}
+.adv-ey{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold-lt);margin-bottom:4px;opacity:.8}
+.adv-title{font-family:var(--fd);font-size:18px;color:#fff}
+.adv-domain{font-size:11px;color:rgba(255,255,255,0.5);margin-top:2px}
+.adv-close-btn{background:rgba(255,255,255,0.1);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s}
+.adv-close-btn:hover{background:rgba(255,255,255,0.2)}
+.adv-msgs{flex:1;overflow-y:auto;padding:1.25rem 1.5rem;display:flex;flex-direction:column;gap:.9rem}
+.msg{display:flex;flex-direction:column;gap:3px;max-width:88%}
+.msg.adv{align-self:flex-start}
+.msg.usr{align-self:flex-end}
+.msg-bub{padding:.7rem 1rem;border-radius:var(--rl);font-size:13px;line-height:1.55}
+.msg.adv .msg-bub{background:var(--cream);border:1px solid var(--bd);color:var(--tm);border-radius:3px var(--rl) var(--rl) var(--rl)}
+.msg.usr .msg-bub{background:var(--navy);color:#fff;border-radius:var(--rl) 3px var(--rl) var(--rl)}
+.msg-meta{font-size:9px;color:var(--tmu)}
+.msg.usr .msg-meta{text-align:right}
+.msg-data{background:#fff;border:1px solid var(--bd);border-radius:var(--r);padding:.65rem .85rem;margin-top:5px}
+.msg-dr{display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid var(--bd);font-size:11px}
+.msg-dr:last-child{border-bottom:none;font-weight:500}
+.mdl{color:var(--tmu)}.mdv{color:var(--text);font-weight:500}
+/* guided quick-replies */
+.quick-replies{flex-shrink:0;padding:.75rem 1.5rem;border-top:1px solid var(--bd);background:var(--cream)}
+.qr-prompt{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--tmu);margin-bottom:7px}
+.qr-btns{display:flex;flex-direction:column;gap:5px}
+.qr-btn{background:#fff;border:1px solid var(--bdm);border-radius:var(--r);padding:8px 12px;cursor:pointer;text-align:left;font-family:var(--fb);font-size:12px;color:var(--text);line-height:1.35;transition:all .15s}
+.qr-btn:hover{border-color:var(--gold);background:var(--gold-pale)}
+.qr-btn.selected{border-color:var(--navy);background:rgba(28,43,74,0.05)}
+.qr-multi-hint{font-size:10px;color:var(--tmu);margin-bottom:5px;font-style:italic}
+.qr-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:7px}
+.qr-confirm{background:var(--navy);color:#fff;font-family:var(--fb);font-size:12px;font-weight:500;padding:7px 16px;border-radius:var(--rp);border:none;cursor:pointer;transition:background .15s}
+.qr-confirm:hover{background:var(--navy-mid)}
+/* normal suggestions */
+.adv-sugg{flex-shrink:0;padding:.65rem 1.5rem .85rem;border-top:1px solid var(--bd)}
+.adv-sugg-lbl{font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--tmu);margin-bottom:6px}
+.sugg-pill{display:block;width:100%;font-size:11px;color:var(--navy);background:var(--cream);border:1px solid var(--bd);border-radius:var(--r);padding:6px 10px;cursor:pointer;text-align:left;font-family:var(--fb);transition:all .15s;line-height:1.35;margin-bottom:4px}
+.sugg-pill:last-child{margin-bottom:0}
+.sugg-pill:hover{border-color:var(--gold);background:var(--gold-pale)}
+/* typing */
+.typing-wrap{display:flex;align-items:center;gap:5px;padding:.5rem 1rem}
+.typing-dot{width:6px;height:6px;border-radius:50%;background:var(--tmu);animation:blink 1.2s infinite}
+.typing-dot:nth-child(2){animation-delay:.2s}
+.typing-dot:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,100%{opacity:.25}50%{opacity:1}}
+/* input row */
+.adv-input-row{flex-shrink:0;padding:.75rem 1.5rem;border-top:1px solid var(--bd);display:flex;gap:8px}
+.adv-input{flex:1;padding:9px 14px;border:1px solid var(--bdm);border-radius:var(--rp);font-family:var(--fb);font-size:12px;outline:none;transition:border-color .15s;background:var(--cream)}
+.adv-input:focus{border-color:var(--gold);background:#fff}
+.adv-send{background:var(--navy);color:#fff;border:none;border-radius:var(--rp);padding:9px 18px;font-family:var(--fb);font-size:12px;font-weight:500;cursor:pointer;flex-shrink:0;transition:background .15s}
+.adv-send:hover{background:var(--navy-mid)}
+
+/* ─── GUIDED TRIGGER CARD ─── */
+.guided-trigger{background:var(--navy);border-radius:var(--rl);padding:1.5rem 1.75rem;margin-bottom:1.25rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.guided-trigger-left .gt-ey{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold-lt);margin-bottom:4px;opacity:.8}
+.guided-trigger-left .gt-t{font-family:var(--fd);font-size:18px;color:#fff;margin-bottom:3px}
+.guided-trigger-left .gt-s{font-size:12px;color:rgba(255,255,255,0.5);font-weight:300}
+.gt-btn{background:var(--gold);color:var(--navy);font-family:var(--fb);font-size:13px;font-weight:500;padding:10px 20px;border-radius:var(--rp);border:none;cursor:pointer;flex-shrink:0;transition:background .15s}
+.gt-btn:hover{background:var(--gold-lt)}
+
+/* owner color helpers */
+.o-cfo{background:rgba(28,43,74,0.1);color:#1C2B4A}
+.o-cto{background:rgba(58,79,122,0.12);color:#253561}
+.o-cro{background:rgba(201,160,48,0.15);color:#8a6b15}
+.o-coo{background:rgba(140,100,20,0.12);color:#7a5510}
+.o-chro{background:rgba(100,100,100,0.1);color:#4a4a4a}
+
+.disc{font-size:11px;color:var(--tmu);background:var(--cream-dk);border-radius:var(--r);padding:10px 14px;margin-bottom:1.25rem;border-left:3px solid var(--bdm);line-height:1.6}
+footer{border-top:1px solid var(--bd);padding:2rem;text-align:center;max-width:1060px;margin:0 auto}
+.ft-brand{font-family:var(--fd);font-size:17px;color:var(--navy);margin-bottom:4px}
+.ft-copy{font-size:11px;color:var(--tmu)}
+
+/* ─── COLLAPSIBLE DATA ROOM ─── */
+.dr-panel{transition:all .2s}
+.dr-collapse-hd{display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;gap:1rem;margin-bottom:0}
+.dr-collapse-hd:hover .dr-toggle{color:var(--navy)}
+.dr-toggle{font-size:12px;color:var(--tmu);transition:transform .25s;display:inline-flex;align-items:center;gap:5px;font-family:var(--fb)}
+.dr-panel.expanded .dr-toggle{transform:rotate(180deg) translateX(0)}
+.dr-collapsible{display:none;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--bd)}
+.dr-panel.expanded .dr-collapsible{display:block}
+
+/* ─── DECISIONS IN PROGRESS PANEL ─── */
+.dip-card{background:#fff;border:1px solid var(--bd);border-radius:var(--rl);padding:1.5rem 1.75rem;margin-bottom:1.25rem;box-shadow:var(--shadow)}
+.dip-hd{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.1rem;gap:1rem;flex-wrap:wrap}
+.dip-t{font-family:var(--fd);font-size:18px;color:var(--navy)}
+.dip-s{font-size:12px;color:var(--tmu);margin-top:2px}
+.dip-leader-note{font-size:10px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;background:rgba(28,43,74,0.07);color:var(--navy);padding:3px 10px;border-radius:var(--rp)}
+.dip-empty{font-size:13px;color:var(--tmu);font-style:italic;padding:.5rem 0}
+.dip-rows{display:flex;flex-direction:column;gap:0}
+.dip-row{display:flex;align-items:flex-start;justify-content:space-between;padding:.9rem 0;border-bottom:1px solid var(--bd);gap:1rem;flex-wrap:wrap}
+.dip-row:last-child{border-bottom:none}
+.dip-row-left{display:flex;align-items:flex-start;gap:12px;flex:1}
+.dip-domain-tag{font-size:9px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;padding:3px 8px;border-radius:var(--rp);flex-shrink:0;margin-top:2px}
+.dip-content{}
+.dip-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:3px}
+.dip-meta{font-size:11px;color:var(--tmu)}
+.dip-row-right{display:flex;align-items:center;gap:8px;flex-shrink:0;flex-wrap:wrap}
+.dip-status{font-size:10px;font-weight:500;padding:3px 10px;border-radius:var(--rp)}
+.ds-exploring{background:rgba(201,160,48,0.12);color:var(--wrn)}
+.ds-analysis{background:rgba(42,96,48,0.1);color:var(--suc)}
+.ds-approved{background:rgba(28,43,74,0.1);color:var(--navy)}
+.ds-project{background:var(--navy);color:var(--gold-lt)}
+.ds-closed{background:var(--cream-dk);color:var(--tmu)}
+.dip-resume-btn{font-size:11px;font-weight:500;color:var(--gold);cursor:pointer;padding:3px 10px;border:1px solid var(--gold-b);border-radius:var(--rp);background:rgba(201,160,48,0.07);font-family:var(--fb);transition:all .15s}
+.dip-resume-btn:hover{background:rgba(201,160,48,0.15)}
+.dip-add-note{font-size:11px;color:var(--tmu);cursor:pointer;padding:3px 8px;border:1px solid var(--bd);border-radius:var(--rp);font-family:var(--fb);background:transparent;transition:all .15s}
+.dip-add-note:hover{border-color:var(--bdm);color:var(--text)}
+/* In buy-side view, decisions show as DD signal with different framing */
+.dip-dd-note{font-size:11px;color:var(--tmu);font-style:italic;padding:.5rem 0 0}
+
+/* ─── DECISION SAVE PROMPT IN CHAT ─── */
+.save-prompt{background:var(--gold-pale);border:1px solid var(--gold-b);border-radius:var(--r);padding:.85rem 1rem;margin-top:5px}
+.save-prompt-t{font-size:12px;font-weight:500;color:var(--navy);margin-bottom:6px}
+.save-prompt-s{font-size:11px;color:var(--tm);margin-bottom:.75rem;line-height:1.5}
+.save-prompt-btns{display:flex;gap:6px;flex-wrap:wrap}
+.sp-btn{font-size:11px;font-weight:500;padding:5px 12px;border-radius:var(--rp);cursor:pointer;font-family:var(--fb);transition:all .15s}
+.sp-save{background:var(--navy);color:#fff;border:none}
+.sp-save:hover{background:var(--navy-mid)}
+.sp-project{background:var(--suc);color:#fff;border:none}
+.sp-project:hover{background:var(--suc-mid)}
+.sp-skip{background:transparent;color:var(--tmu);border:1px solid var(--bd)}
+.sp-skip:hover{color:var(--text)}
+
+/* ─── DATA ACQUISITION BLOCK IN CHAT ─── */
+.data-acq{background:var(--cream);border:1px solid var(--bd);border-radius:var(--r);padding:.85rem 1rem;margin-top:5px}
+.da-t{font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--navy);margin-bottom:.65rem}
+.da-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:7px}
+.da-row:last-of-type{margin-bottom:0}
+.da-icon{font-size:13px;flex-shrink:0;margin-top:1px}
+.da-content{flex:1}
+.da-label{font-size:11px;font-weight:500;color:var(--text);margin-bottom:1px}
+.da-detail{font-size:11px;color:var(--tmu);line-height:1.45}
+.da-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:.75rem;padding-top:.65rem;border-top:1px solid var(--bd)}
+.da-btn{font-size:11px;font-weight:500;padding:5px 12px;border-radius:var(--rp);cursor:pointer;font-family:var(--fb);border:1px solid var(--bdm);background:transparent;color:var(--text);transition:all .15s}
+.da-btn:hover{border-color:var(--gold);background:var(--gold-pale);color:var(--navy)}
+.da-btn.primary{background:var(--navy);color:#fff;border:none}
+.da-btn.primary:hover{background:var(--navy-mid)}
+
+/* ─── EMAIL DRAFT IN CHAT ─── */
+.email-draft{background:#fff;border:1px solid var(--bd);border-radius:var(--r);padding:.85rem 1rem;margin-top:5px}
+.email-hd{font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--tmu);margin-bottom:.65rem}
+.email-field{font-size:11px;color:var(--tm);margin-bottom:4px}
+.email-field strong{color:var(--text)}
+.email-body{font-size:12px;color:var(--tm);line-height:1.6;margin-top:.65rem;padding-top:.65rem;border-top:1px solid var(--bd)}
+.email-actions{display:flex;gap:6px;margin-top:.75rem;flex-wrap:wrap}
+.email-note{font-size:10px;color:var(--tmu);font-style:italic;margin-top:5px}
+
+@media(max-width:760px){
+  .mrow{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .dec-grid{grid-template-columns:1fr}
+  .fr-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .dr-grid3{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .adv-drawer{width:100%}
+  nav{padding:0 1.25rem}
+  .main{padding:0 1.25rem 4rem}
+}
+</style>
+<!-- /style above, body content starts directly -->
+
+<!-- SIM OPEN TAB -->
+
+
+<!-- SIMULATOR TRAY -->
+
+
+<!-- NAV -->
+<nav>
+  <a href="vantage_landing.html" class="nav-brand">
+    <div class="nav-logo">C</div>
+    <div class="nav-names">
+      <span class="nav-product">Vantage</span>
+      <span class="nav-co">by Capacera</span>
+    </div>
+  </a>
+  <div class="nav-right">
+    <a href="vantage_landing.html" class="nav-back">← All Physicals</a>
+    <a href="vantage_landing.html#design-partner" class="nav-cta">Request demo</a>
+  </div>
+</nav>
+
+<!-- SCENARIO BAR -->
+<div class="scen-bar">
+  <span class="scen-lbl">View</span>
+  <div class="scen-tabs">
+    <button class="s-tab active" onclick="setScenario('macc',this)">Buy-Side M&amp;A</button>
+    <button class="s-tab" onclick="setScenario('postacq',this)">Post-Acquisition Monitoring</button>
+  </div>
+  <span class="scen-name" id="scen-name">Mid-Market SaaS Acquisition — Buy-Side View</span>
+</div>
+
+<!-- ADVISER OVERLAY + DRAWER -->
+
+
+
+<!-- ─── MAIN ─── -->
+<div class="main">
+
+  <!-- COMPANY -->
+  <div class="s-ey-muted" style="margin-top:1.5rem">Frictionless Physical assessment · AcmeSaaS, Inc. · Enterprise integration active</div>
+  <div class="co-card">
+    <div class="co-left">
+      <div class="co-logo">A</div>
+      <div>
+        <div class="co-name">AcmeSaaS, Inc.</div>
+        <div class="co-meta"><span>B2B SaaS</span><span>$2.4M EBITDA</span><span>$12M ARR</span><span id="co-date">Feb 28, 2026</span></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0">
+      <div class="sp-pill"><div class="sdot"></div><span id="status-label">Buy-side diligence in progress</span></div>
+      <div class="int-badge">⚡ Live integrations: CRM · Cloud · HRIS · Finance</div>
+    </div>
+  </div>
+
+  <!-- METRICS -->
+  <div class="mrow">
+    <div class="mc"><div class="mc-lbl">Baseline multiple</div><div class="mc-val cn">6.0x</div><div class="mc-sub">B2B SaaS median · $14.4M EV</div></div>
+    <div class="mc"><div class="mc-lbl">Compression floor</div><div class="mc-val cd" id="m-floor">4.2x</div><div class="mc-sub" id="m-floor-ev">−1.8x · $10.1M EV</div></div>
+    <div class="mc"><div class="mc-lbl">Expansion ceiling</div><div class="mc-val cs" id="m-ceil">9.1x</div><div class="mc-sub" id="m-ceil-ev">+3.1x · $21.8M EV</div></div>
+    <div class="mc"><div class="mc-lbl" id="m4-lbl">Assessment confidence</div><div class="mc-val cg" id="m4-val">71%</div><div class="mc-sub" id="m4-sub">4 unknowns flagged</div></div>
+  </div>
+
+  <!-- ENVELOPE -->
+  <div class="card">
+    <div class="card-hd"><div class="card-t">Valuation envelope</div><div class="card-s">$2.4M EBITDA basis · 4x–14x scale</div></div>
+    <div class="env-ax"><span>4x</span><span>6x</span><span>8x</span><span>10x</span><span>12x</span><span>14x</span></div>
+    <div class="env-tr"><div class="env-comp" id="eC" style="left: 2%; width: 18%;"></div><div class="env-exp" id="eE" style="left: 20%; width: 31%;"></div><div class="env-bl" id="eBl" style="left: calc(20% - 1.5px);"></div><div class="env-fl" id="eF" style="left: calc(2% - 1px);"></div><div class="env-cl" id="eCl" style="left: calc(51% - 1px);"></div></div>
+    <div class="env-lbs"><div class="env-lb cd" id="lF" style="left: 2%;">4.2x</div><div class="env-lb cn" id="lB" style="left: 20%;">6.0x</div><div class="env-lb cs" id="lCl" style="left: 51%;">9.1x</div></div>
+    <div class="env-ft">
+      <div><div class="ef-lbl">Floor EV</div><div class="ef-val cd" id="evF">$10.1M</div></div>
+      <div><div class="ef-lbl">Baseline EV</div><div class="ef-val cn">$14.4M</div></div>
+      <div><div class="ef-lbl">Ceiling EV</div><div class="ef-val cs" id="evCl">$21.8M</div></div>
+      <div style="margin-left:auto;text-align:right"><div class="ef-lbl">At-stake spread</div><div class="ef-val cn" id="evSp">$11.8M</div></div>
+    </div>
+  </div>
+
+  <!-- DUE DILIGENCE PLAN -->
+  <div class="dd-card" id="dd-panel">
+    <div class="dd-hd" onclick="this.parentElement.classList.toggle('open')">
+      <div><div class="dd-ey">Due diligence intelligence</div><div class="dd-title">Assessment plan &amp; integration status</div></div>
+      <div class="dd-pills">
+        <span class="dd-pill" style="background:var(--suc-bg);color:var(--suc)">3 complete</span>
+        <span class="dd-pill" style="background:var(--wrn-bg);color:var(--wrn)">2 in progress</span>
+        <span class="dd-pill" style="background:var(--dng-bg);color:var(--dng)">1 pending</span>
+        <span style="font-size:12px;color:var(--tmu)">▾</span>
+      </div>
+    </div>
+    <div class="dd-body">
+      <div class="dd-step"><div class="step-ico st-done">✓</div><div class="step-body"><div class="step-t">Identify domain owners</div><div class="step-d">CTO, CRO, CHRO, CFO, COO mapped. Primary contacts confirmed. LOI signed by CFO.</div></div><div class="step-r"><span class="step-status" style="background:var(--suc-bg);color:var(--suc)">Complete</span><div class="step-date">Feb 14, 2026</div></div></div>
+      <div class="dd-step"><div class="step-ico st-done">✓</div><div class="step-body"><div class="step-t">Identify data sources &amp; connect integrations</div><div class="step-d">AWS Cost Explorer, Salesforce CRM, BambooHR, QuickBooks connected. 4 of 6 planned integrations live.</div></div><div class="step-r"><span class="step-status" style="background:var(--suc-bg);color:var(--suc)">Complete</span><div class="step-date">Feb 20, 2026</div></div></div>
+      <div class="dd-step"><div class="step-ico st-done">✓</div><div class="step-body"><div class="step-t">Technology Physical complete — data integrated</div><div class="step-d">Cloud spend, app inventory, architecture maturity assessed. Score: 3.4/5. 4 redundant apps flagged. $180K annual waste identified.</div></div><div class="step-r"><span class="step-status" style="background:var(--suc-bg);color:var(--suc)">Complete</span><div class="step-date">Feb 28, 2026</div></div></div>
+      <div class="dd-step"><div class="step-ico st-go">→</div><div class="step-body"><div class="step-t">Revenue Physical — Salesforce integration active</div><div class="step-d">12 accounts loaded. Customer health scoring running. Renewal risk surfaced: $3.05M at risk ≤45 days. Pending CRM field mapping validation.</div></div><div class="step-r"><span class="step-status" style="background:var(--wrn-bg);color:var(--wrn)">In progress</span><div class="step-date">Est. Mar 5</div></div></div>
+      <div class="dd-step"><div class="step-ico st-go">→</div><div class="step-body"><div class="step-t">People Physical — BambooHR integration active</div><div class="step-d">47 employee records loaded. Compensation benchmarking running. 3 roles flagged below market rate by 14–22%.</div></div><div class="step-r"><span class="step-status" style="background:var(--wrn-bg);color:var(--wrn)">In progress</span><div class="step-date">Est. Mar 7</div></div></div>
+      <div class="dd-step"><div class="step-ico st-wait">○</div><div class="step-body"><div class="step-t">Financial Physical — awaiting CFO approval for QuickBooks export</div><div class="step-d">Integration connected. 24-month historical export pending CFO sign-off. Financial integrity scoring blocked.</div></div><div class="step-r"><span class="step-status" style="background:var(--dng-bg);color:var(--dng)">Pending</span><div class="step-date">TBD</div></div></div>
+      <div class="roi-bar"><div class="roi-big">4 wks → 3 days</div><div><div class="roi-t">Due diligence timeline compression</div><div class="roi-s">Advisers synthesize domain data simultaneously. Escalation to owners happens with full context pre-loaded — no re-explaining required.</div></div></div>
+    </div>
+  </div>
+
+  <!-- POST-ACQ PANEL -->
+  <div id="postacq-panel" style="display:none;background:#fff;border:1px solid var(--bd);border-left:3px solid var(--navy);border-radius:var(--rl);padding:1.5rem 1.75rem;margin-bottom:1.25rem;box-shadow:var(--shadow)">
+    <div class="s-ey" style="margin-bottom:.75rem">Post-acquisition monitoring · 90 days post-close</div>
+    <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px">
+      <div style="background:var(--suc-bg);border-radius:var(--r);padding:.9rem 1rem"><div class="mc-lbl">ARR retention</div><div class="mc-val" style="color:var(--suc);font-size:24px">$8.9M</div><div class="mc-sub">74% of base · 90 days</div></div>
+      <div style="background:var(--dng-bg);border-radius:var(--r);padding:.9rem 1rem"><div class="mc-lbl">Talent risk</div><div class="mc-val" style="color:var(--dng);font-size:24px">3 roles</div><div class="mc-sub">Flagged at flight risk</div></div>
+      <div style="background:var(--wrn-bg);border-radius:var(--r);padding:.9rem 1rem"><div class="mc-lbl">System integration</div><div class="mc-val" style="color:var(--wrn);font-size:24px">62%</div><div class="mc-sub">8 of 14 systems live</div></div>
+      <div style="background:var(--cream-dk);border-radius:var(--r);padding:.9rem 1rem"><div class="mc-lbl">Adviser coverage</div><div class="mc-val" style="color:var(--navy);font-size:24px">All 5</div><div class="mc-sub">Monitoring continuously</div></div>
+    </div>
+  </div>
+
+  <!-- DATA ROOM HEALTH — Buy-side view only · collapsible -->
+  <!-- UI NOTE: Data room health is a PRE-EVENT (buy-side/sell-side) feature only.
+       It shows the target's document completeness for diligence purposes.
+       It does NOT belong in the Post-Acquisition Monitoring view. -->
+  <div class="dr-panel" id="dataroom-panel">
+    <div class="dr-collapse-hd" onclick="toggleDataRoom()">
+      <div style="display:flex;align-items:flex-start;gap:1.25rem;flex-wrap:wrap;flex:1">
+        <div style="flex:1">
+          <div class="s-ey" style="margin-bottom:4px">Data room health</div>
+          <div class="card-t">Frictionless Overview · Document completeness</div>
+          <div style="font-size:12px;color:var(--tmu);margin-top:3px">Graded on completeness · recency · consistency</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;flex-shrink:0">
+          <div class="dr-grade-circle">B+</div>
+          <div class="dr-toggle" id="drToggleLabel">▾ expand</div>
+        </div>
+      </div>
+    </div>
+    <div class="dr-collapsible" id="drBody">
+      <div class="dr-grid3">
+        <div class="dr-stat"><div class="dr-stat-lbl">Completeness</div><div class="dr-stat-val" style="color:var(--suc)">82%</div><div class="dr-stat-note">41 of 50 documents present</div></div>
+        <div class="dr-stat"><div class="dr-stat-lbl">Recency</div><div class="dr-stat-val" style="color:var(--wrn)">68%</div><div class="dr-stat-note">7 docs older than 12 months</div></div>
+        <div class="dr-stat"><div class="dr-stat-lbl">Consistency</div><div class="dr-stat-val" style="color:var(--suc)">79%</div><div class="dr-stat-note">3 metric definition conflicts</div></div>
+      </div>
+      <div class="dr-item"><span class="dr-item-lbl">Cap table &amp; ownership structure</span><span class="st-pill st-ok">Present · current</span></div>
+      <div class="dr-item"><span class="dr-item-lbl">Financial statements (24 months)</span><span class="st-pill st-warn">Present · awaiting CFO sign-off</span></div>
+      <div class="dr-item"><span class="dr-item-lbl">Customer contracts &amp; MSAs</span><span class="st-pill st-ok">Present · current</span></div>
+      <div class="dr-item"><span class="dr-item-lbl">IP assignments &amp; patent filings</span><span class="st-pill st-miss">Missing · requested</span></div>
+      <div class="dr-item"><span class="dr-item-lbl">Employee agreements &amp; org chart</span><span class="st-pill st-ok">Present · current</span></div>
+      <div class="dr-item"><span class="dr-item-lbl">SOC 2 or security certification</span><span class="st-pill st-miss">Missing · Type I in progress</span></div>
+      <div class="dr-item"><span class="dr-item-lbl">Technology architecture documentation</span><span class="st-pill st-warn">Present · 18 months old</span></div>
+    </div>
+  </div>
+
+  <!-- DECISIONS IN PROGRESS PANEL -->
+  <!-- UI NOTE: This panel is a MONITORING feature — it tracks your team's ongoing
+       work on decisions being explored through the platform.
+       In Buy-Side M&A view it shows as a DD signal: decisions the TARGET team has
+       in flight (a signal of operational discipline or misalignment).
+       In Monitoring view it shows YOUR team's active decisions. -->
+  <div class="dip-card" id="dip-panel">
+    <div class="dip-hd">
+      <div>
+        <div class="dip-t" id="dip-title">Decisions in progress</div>
+        <div class="dip-s" id="dip-subtitle">Decisions being explored by your team · visible to all users and leadership</div>
+      </div>
+      <span class="dip-leader-note" id="dip-leader-note">Leader view</span>
+    </div>
+    <div id="dip-rows"><div class="dip-rows"><div class="dip-row"><div class="dip-row-left"><span class="dip-domain-tag" style="background:rgba(201,160,48,0.15);color:#8a6b15">Revenue</span><div class="dip-content"><div class="dip-title">Renewal process restructuring</div><div class="dip-meta">Sarah K. (CRO) · Last activity: Mar 3, 2026 · EV potential: +0.4x</div><div class="dip-meta" style="margin-top:3px;font-style:italic">Evaluating formal 90-day renewal motion. Vantage Partners (9 days) is the immediate trigger. CSM capacity gap identified as constraint.</div></div></div><div class="dip-row-right"><span class="dip-status ds-analysis">Analysis complete</span><button class="dip-resume-btn" onclick="resumeDecision('d1')">Resume →</button><button class="dip-add-note" onclick="addLeaderNote('d1')">+ Note</button></div></div><div class="dip-row"><div class="dip-row-left"><span class="dip-domain-tag" style="background:rgba(58,79,122,0.12);color:#253561">Technology</span><div class="dip-content"><div class="dip-title">Application portfolio rationalization</div><div class="dip-meta">Marcus L. (CTO) · Last activity: Feb 28, 2026 · EV potential: +0.4x</div><div class="dip-meta" style="margin-top:3px;font-style:italic">Technology Adviser guided scenario completed. Business case and project plan exported. Awaiting CFO review before approval.</div></div></div><div class="dip-row-right"><span class="dip-status ds-exploring">Exploring</span><button class="dip-resume-btn" onclick="resumeDecision('d2')">Resume →</button><button class="dip-add-note" onclick="addLeaderNote('d2')">+ Note</button></div></div></div></div>
+    <div class="dip-dd-note" id="dip-dd-note" style="display:none">In buy-side view: these are decisions the target company's team has in flight — surfaced as a signal of operational discipline and prioritization alignment.</div>
+  </div>
+
+  <!-- CXO TABS -->
+  <div class="s-ey-muted">Select a domain · filters all content below</div>
+  <div class="cxo-tabs">
+    <button class="cxo-tab active" onclick="setTab('all',this)">All domains</button>
+    <button class="cxo-tab" onclick="setTab('cfo',this)"><span class="tab-dot" style="background:var(--wrn)"></span>Financial</button>
+    <button class="cxo-tab" onclick="setTab('cro',this)"><span class="tab-dot" style="background:var(--dng)"></span>Revenue</button>
+    <button class="cxo-tab" onclick="setTab('chro',this)"><span class="tab-dot" style="background:var(--wrn)"></span>People</button>
+    <button class="cxo-tab" onclick="setTab('coo',this)"><span class="tab-dot" style="background:var(--suc)"></span>Operations</button>
+    <button class="cxo-tab" onclick="setTab('cto',this)"><span class="tab-dot" style="background:var(--dng)"></span>Technology</button>
+  </div>
+
+  <!-- FRICTIONLESS RATINGS -->
+  <div class="fr-grid" id="fr-grid">
+    <div class="fr-card" data-domain="cto"><div class="fr-lbl">Technology Physical</div><span class="fr-badge" style="background:rgba(184,48,48,0.1);color:var(--dng)">Fragmented · Complex</span><div class="fr-score">Score 3.4 / 5 · assessed</div></div>
+    <div class="fr-card" data-domain="cro"><div class="fr-lbl">Revenue Physical</div><span class="fr-badge" style="background:rgba(201,160,48,0.12);color:var(--wrn)">Concentrated · At-Risk</span><div class="fr-score">Score 3.8 / 5 · assessed</div></div>
+    <div class="fr-card" data-domain="chro"><div class="fr-lbl">People Physical</div><span class="fr-badge" style="background:rgba(201,160,48,0.12);color:var(--wrn)">Dependent · Transitional</span><div class="fr-score">Score 3.1 / 5 · assessed</div></div>
+    <div class="fr-card" data-domain="cfo"><div class="fr-lbl">Financial Physical</div><div class="fr-na">Not yet assessed</div><div class="fr-na-note">Scheduled Q3 2026</div></div>
+    <div class="fr-card" data-domain="coo"><div class="fr-lbl">Process Physical</div><div class="fr-na">Not yet assessed</div><div class="fr-na-note">Scheduled Q2 2026</div></div>
+  </div>
+
+  <!-- GUIDED SCENARIO TRIGGER (Technology domain) -->
+  <div class="guided-trigger" id="guided-trigger" style="display:none">
+    <div class="guided-trigger-left">
+      <div class="gt-ey">✦ Guided scenario · Technology Adviser</div>
+      <div class="gt-t">Should I replace this application?</div>
+      <div class="gt-s">Step-by-step: business case · plan · roadmap · solution criteria — the adviser asks before it answers.</div>
+    </div>
+    <button class="gt-btn" onclick="startGuidedInChat()">Start in Technology Adviser →</button>
+  </div>
+
+  <!-- ALL DOMAIN SUMMARY -->
+  <div class="domain-sec show" id="sec-all">
+    <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:1.25rem">
+      <div class="card" style="margin-bottom:0"><div class="card-hd"><div class="card-t">Compression drivers</div><div class="card-s cd">−1.8x total</div></div>
+        <div class="dr-row"><div class="dr-top"><span class="dr-n">Enterprise architecture debt</span><span class="dr-d cd">−0.6x</span></div><div class="bar-bg"><div class="bar-f" style="width:33%;background:var(--dng)"></div></div></div>
+        <div class="dr-row"><div class="dr-top"><span class="dr-n">Revenue concentration risk</span><span class="dr-d cd">−0.4x</span></div><div class="bar-bg"><div class="bar-f" style="width:22%;background:var(--dng)"></div></div></div>
+        <div class="dr-row"><div class="dr-top"><span class="dr-n">Governance &amp; controls gaps</span><span class="dr-d cd">−0.3x</span></div><div class="bar-bg"><div class="bar-f" style="width:17%;background:rgba(184,48,48,0.65)"></div></div></div>
+        <div class="dr-row"><div class="dr-top"><span class="dr-n">Key-person dependency</span><span class="dr-d cd">−0.3x</span></div><div class="bar-bg"><div class="bar-f" style="width:17%;background:rgba(184,48,48,0.5)"></div></div></div>
+        <div class="dr-row"><div class="dr-top"><span class="dr-n">Data reliability</span><span class="dr-d cd">−0.2x</span></div><div class="bar-bg"><div class="bar-f" style="width:11%;background:rgba(184,48,48,0.38)"></div></div></div>
+      </div>
+      <div class="card" style="margin-bottom:0"><div class="card-hd"><div class="card-t">Expansion opportunities</div><div class="card-s cs">+3.1x total</div></div>
+        <div class="dr-row"><div class="dr-top"><span class="dr-n">AI utilization gap</span><span class="dr-d cs">+1.2x</span></div><div class="bar-bg"><div class="bar-f" style="width:39%;background:var(--suc)"></div></div></div>
+        <div class="dr-row"><div class="dr-top"><span class="dr-n">Automation deficit</span><span class="dr-d cs">+0.8x</span></div><div class="bar-bg"><div class="bar-f" style="width:26%;background:var(--suc)"></div></div></div>
+        <div class="dr-row"><div class="dr-top"><span class="dr-n">Pricing inefficiency</span><span class="dr-d cs">+0.6x</span></div><div class="bar-bg"><div class="bar-f" style="width:19%;background:rgba(42,96,48,0.7)"></div></div></div>
+        <div class="dr-row"><div class="dr-top"><span class="dr-n">System modernization</span><span class="dr-d cs">+0.3x</span></div><div class="bar-bg"><div class="bar-f" style="width:10%;background:rgba(42,96,48,0.55)"></div></div></div>
+        <div class="dr-row"><div class="dr-top"><span class="dr-n">Contract standardization</span><span class="dr-d cs">+0.2x</span></div><div class="bar-bg"><div class="bar-f" style="width:6%;background:rgba(42,96,48,0.4)"></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CTO DOMAIN ── -->
+  <div class="domain-sec" id="sec-cto">
+    <div class="card"><div class="card-hd"><div><div class="card-t">Technology · Application inventory</div><div style="font-size:11px;color:var(--tmu);margin-top:3px">Frictionless Physical: <strong style="color:var(--dng)">Fragmented · Complex</strong> · Score 3.4/5 · 14 apps · 4 redundant · $180K annual overlap</div></div><button class="open-adv-btn" onclick="openAdviser('cto')">✦ Open Technology Adviser</button></div>
+      <div class="dt-filter-row"><input class="dt-filter" type="text" placeholder="Search applications..." oninput="filterDT('cto-table',this.value)"><select class="dt-select" onchange="filterDTSel('cto-table','status',this.value)"><option value="">All status</option><option>Active</option><option>Redundant</option><option>Orphaned</option><option>Legacy</option></select></div>
+      <div class="dt-count" id="cto-count">14 applications · $17,110/mo total spend</div>
+      <div class="dt-scroll"><table class="dt-table" id="cto-table"><thead><tr><th>Application</th><th>Type</th><th>Monthly cost</th><th>Status</th><th>Flag</th></tr></thead><tbody id="cto-body"><tr style=""><td style="font-weight:500">HubSpot CRM</td><td style="color:var(--tmu)">CRM</td><td>$890</td><td><span class="rpill r-ok">Active</span></td><td><span style="color:var(--tmu);font-size:11px">—</span></td></tr><tr style="background:rgba(184,48,48,0.04)"><td style="font-weight:500">Salesforce Classic</td><td style="color:var(--tmu)">CRM</td><td>$1,200</td><td><span class="rpill r-crit">Redundant</span></td><td><span class="r-flag">⚑ redundant</span></td></tr><tr style=""><td style="font-weight:500">Redshift</td><td style="color:var(--tmu)">Data Warehouse</td><td>$3,800</td><td><span class="rpill r-ok">Active</span></td><td><span class="r-flag">⚑ 18% utilisation</span></td></tr><tr style=""><td style="font-weight:500">Looker</td><td style="color:var(--tmu)">BI / Analytics</td><td>$2,100</td><td><span class="rpill r-ok">Active</span></td><td><span style="color:var(--tmu);font-size:11px">—</span></td></tr><tr style=""><td style="font-weight:500">Jira</td><td style="color:var(--tmu)">Project Mgmt</td><td>$340</td><td><span class="rpill r-ok">Active</span></td><td><span style="color:var(--tmu);font-size:11px">—</span></td></tr><tr style="background:rgba(184,48,48,0.04)"><td style="font-weight:500">Asana</td><td style="color:var(--tmu)">Project Mgmt</td><td>$280</td><td><span class="rpill r-crit">Redundant</span></td><td><span class="r-flag">⚑ redundant</span></td></tr><tr style=""><td style="font-weight:500">QuickBooks</td><td style="color:var(--tmu)">Finance</td><td>$450</td><td><span class="rpill r-ok">Active</span></td><td><span style="color:var(--tmu);font-size:11px">—</span></td></tr><tr style=""><td style="font-weight:500">Workday</td><td style="color:var(--tmu)">HRIS</td><td>$1,100</td><td><span class="rpill r-ok">Active</span></td><td><span style="color:var(--tmu);font-size:11px">—</span></td></tr><tr style=""><td style="font-weight:500">Zendesk</td><td style="color:var(--tmu)">Customer Support</td><td>$780</td><td><span class="rpill r-ok">Active</span></td><td><span style="color:var(--tmu);font-size:11px">—</span></td></tr><tr style=""><td style="font-weight:500">Zapier</td><td style="color:var(--tmu)">Automation</td><td>$560</td><td><span class="rpill r-ok">Active</span></td><td><span style="color:var(--tmu);font-size:11px">—</span></td></tr><tr style="background:rgba(184,48,48,0.04)"><td style="font-weight:500">Custom Billing</td><td style="color:var(--tmu)">Billing</td><td>$2,400</td><td><span class="rpill r-med">Legacy</span></td><td><span class="r-flag">⚑ no vendor support</span></td></tr><tr style="background:rgba(201,160,48,0.06)"><td style="font-weight:500">Dev Sandbox</td><td style="color:var(--tmu)">Infrastructure</td><td>$1,890</td><td><span class="rpill r-high">Orphaned</span></td><td><span class="r-flag">⚑ orphaned</span></td></tr><tr style=""><td style="font-weight:500">Slack</td><td style="color:var(--tmu)">Communications</td><td>$1,100</td><td><span class="rpill r-ok">Active</span></td><td><span style="color:var(--tmu);font-size:11px">—</span></td></tr><tr style=""><td style="font-weight:500">Notion</td><td style="color:var(--tmu)">Documentation</td><td>$220</td><td><span class="rpill r-ok">Active</span></td><td><span style="color:var(--tmu);font-size:11px">—</span></td></tr></tbody></table></div>
+    </div>
+  </div>
+
+  <!-- ── CRO DOMAIN ── -->
+  <div class="domain-sec" id="sec-cro">
+    <div class="card"><div class="card-hd"><div><div class="card-t">Revenue · Customer accounts</div><div style="font-size:11px;color:var(--tmu);margin-top:3px">Frictionless Physical: <strong style="color:var(--dng)">Concentrated · At-Risk</strong> · Score 3.8/5 · $3.05M ARR at risk ≤45 days</div></div><button class="open-adv-btn" onclick="openAdviser('cro')">✦ Open Revenue Adviser</button></div>
+      <div class="dt-filter-row"><input class="dt-filter" type="text" placeholder="Search accounts..." oninput="filterDT('cro-table',this.value)"><select class="dt-select" onchange="filterDTSel('cro-table','risk',this.value)"><option value="">All risk</option><option>Critical</option><option>High</option><option>Medium</option><option>Low</option></select></div>
+      <div class="dt-count" id="cro-count">12 accounts · $12M ARR</div>
+      <div class="dt-scroll"><table class="dt-table" id="cro-table"><thead><tr><th>Account</th><th>ARR</th><th>Health</th><th>Logins/30d</th><th>Tickets</th><th>Renewal</th><th>Risk</th></tr></thead><tbody id="cro-body"><tr><td style="font-weight:500">Vantage Partners</td><td>$1.65M</td><td><div class="hbw"><div class="hb-bg"><div class="hb-f" style="width:19%;background:var(--dng)"></div></div><span style="font-size:11px;color:var(--dng);font-weight:500;min-width:22px">19</span></div></td><td>0</td><td>5</td><td style="color:var(--dng);font-weight:500">9 days</td><td><span class="rpill r-crit">Critical</span></td></tr><tr><td style="font-weight:500">Meridian Financial</td><td>$820K</td><td><div class="hbw"><div class="hb-bg"><div class="hb-f" style="width:31%;background:var(--dng)"></div></div><span style="font-size:11px;color:var(--dng);font-weight:500;min-width:22px">31</span></div></td><td>4</td><td>3</td><td style="color:var(--dng);font-weight:500">23 days</td><td><span class="rpill r-high">High</span></td></tr><tr><td style="font-weight:500">Apex Logistics</td><td>$580K</td><td><div class="hbw"><div class="hb-bg"><div class="hb-f" style="width:44%;background:#c0802a"></div></div><span style="font-size:11px;color:#c0802a;font-weight:500;min-width:22px">44</span></div></td><td>12</td><td>1</td><td style="color:var(--dng);font-weight:500">38 days</td><td><span class="rpill r-med">Medium</span></td></tr><tr><td style="font-weight:500">Clearwater Group</td><td>$1.1M</td><td><div class="hbw"><div class="hb-bg"><div class="hb-f" style="width:52%;background:#c0802a"></div></div><span style="font-size:11px;color:#c0802a;font-weight:500;min-width:22px">52</span></div></td><td>18</td><td>2</td><td style="">74 days</td><td><span class="rpill r-med">Medium</span></td></tr><tr><td style="font-weight:500">Pinnacle Health</td><td>$750K</td><td><div class="hbw"><div class="hb-bg"><div class="hb-f" style="width:61%;background:#8ab040"></div></div><span style="font-size:11px;color:#8ab040;font-weight:500;min-width:22px">61</span></div></td><td>24</td><td>0</td><td style="">110 days</td><td><span class="rpill r-low">Low</span></td></tr><tr><td style="font-weight:500">Redwood Capital</td><td>$900K</td><td><div class="hbw"><div class="hb-bg"><div class="hb-f" style="width:68%;background:#8ab040"></div></div><span style="font-size:11px;color:#8ab040;font-weight:500;min-width:22px">68</span></div></td><td>31</td><td>1</td><td style="">145 days</td><td><span class="rpill r-low">Low</span></td></tr><tr><td style="font-weight:500">Summit Analytics</td><td>$640K</td><td><div class="hbw"><div class="hb-bg"><div class="hb-f" style="width:72%;background:var(--suc)"></div></div><span style="font-size:11px;color:var(--suc);font-weight:500;min-width:22px">72</span></div></td><td>38</td><td>0</td><td style="">180 days</td><td><span class="rpill r-low">Low</span></td></tr><tr><td style="font-weight:500">Horizon Ventures</td><td>$480K</td><td><div class="hbw"><div class="hb-bg"><div class="hb-f" style="width:79%;background:var(--suc)"></div></div><span style="font-size:11px;color:var(--suc);font-weight:500;min-width:22px">79</span></div></td><td>42</td><td>0</td><td style="">210 days</td><td><span class="rpill r-low">Low</span></td></tr><tr><td style="font-weight:500">Orion Systems</td><td>$920K</td><td><div class="hbw"><div class="hb-bg"><div class="hb-f" style="width:83%;background:var(--suc)"></div></div><span style="font-size:11px;color:var(--suc);font-weight:500;min-width:22px">83</span></div></td><td>55</td><td>0</td><td style="">255 days</td><td><span class="rpill r-low">Low</span></td></tr><tr><td style="font-weight:500">Bluewave Tech</td><td>$1.2M</td><td><div class="hbw"><div class="hb-bg"><div class="hb-f" style="width:87%;background:var(--suc)"></div></div><span style="font-size:11px;color:var(--suc);font-weight:500;min-width:22px">87</span></div></td><td>61</td><td>0</td><td style="">300 days</td><td><span class="rpill r-low">Low</span></td></tr><tr><td style="font-weight:500">Kestrel Partners</td><td>$560K</td><td><div class="hbw"><div class="hb-bg"><div class="hb-f" style="width:91%;background:var(--suc)"></div></div><span style="font-size:11px;color:var(--suc);font-weight:500;min-width:22px">91</span></div></td><td>70</td><td>0</td><td style="">330 days</td><td><span class="rpill r-low">Low</span></td></tr><tr><td style="font-weight:500">Altitude Corp</td><td>$400K</td><td><div class="hbw"><div class="hb-bg"><div class="hb-f" style="width:94%;background:var(--suc)"></div></div><span style="font-size:11px;color:var(--suc);font-weight:500;min-width:22px">94</span></div></td><td>82</td><td>0</td><td style="">365 days</td><td><span class="rpill r-low">Low</span></td></tr></tbody></table></div>
+    </div>
+  </div>
+
+  <!-- ── CHRO DOMAIN ── -->
+  <div class="domain-sec" id="sec-chro">
+    <div class="card"><div class="card-hd"><div><div class="card-t">People · Employee risk roster</div><div style="font-size:11px;color:var(--tmu);margin-top:3px">Frictionless Physical: <strong style="color:var(--wrn)">Dependent · Transitional</strong> · Score 3.1/5 · 3 roles at critical flight risk</div></div><button class="open-adv-btn" onclick="openAdviser('chro')">✦ Open People Adviser</button></div>
+      <div class="dt-filter-row"><input class="dt-filter" type="text" placeholder="Search roles..." oninput="filterDT('chro-table',this.value)"><select class="dt-select" onchange="filterDTSel('chro-table','risk',this.value)"><option value="">All risk levels</option><option>Critical</option><option>High</option><option>Medium</option><option>Low</option></select></div>
+      <div class="dt-count" id="chro-count">6 roles shown · 47 employees total</div>
+      <div class="dt-scroll"><table class="dt-table" id="chro-table"><thead><tr><th>Role</th><th>Tenure</th><th>Market rate gap</th><th>Recruiter contact</th><th>Succession</th><th>Risk</th></tr></thead><tbody id="chro-body"><tr><td style="font-weight:500">Lead Engineer</td><td>3.2 yrs</td><td style="color:var(--wrn);font-weight:500">−22%</td><td style="color:var(--dng)">6 weeks ago</td><td><span class="rpill r-crit">None</span></td><td><span class="rpill r-crit">Critical</span></td></tr><tr><td style="font-weight:500">Backend Engineer Sr.</td><td>1.8 yrs</td><td style="color:var(--wrn);font-weight:500">−18%</td><td style="color:var(--dng)">3 weeks ago</td><td><span class="rpill r-crit">None</span></td><td><span class="rpill r-crit">Critical</span></td></tr><tr><td style="font-weight:500">DevOps Lead</td><td>2.1 yrs</td><td style="color:var(--wrn);font-weight:500">−14%</td><td style="color:var(--tmu)">—</td><td><span class="rpill r-crit">None</span></td><td><span class="rpill r-high">High</span></td></tr><tr><td style="font-weight:500">CTO</td><td>5.1 yrs</td><td style="color:var(--wrn);font-weight:500">−8%</td><td style="color:var(--dng)">2 months ago</td><td><span class="rpill r-crit">None</span></td><td><span class="rpill r-med">Medium</span></td></tr><tr><td style="font-weight:500">CFO</td><td>3.8 yrs</td><td style="color:var(--wrn);font-weight:500">−5%</td><td style="color:var(--tmu)">—</td><td><span class="rpill r-crit">None</span></td><td><span class="rpill r-med">Medium</span></td></tr><tr><td style="font-weight:500">Product Manager</td><td>4.5 yrs</td><td style="color:var(--suc);font-weight:500">+2%</td><td style="color:var(--tmu)">—</td><td><span class="rpill r-ok">Named</span></td><td><span class="rpill r-low">Low</span></td></tr></tbody></table></div>
+    </div>
+  </div>
+
+  <!-- ── CFO DOMAIN ── -->
+  <div class="domain-sec" id="sec-cfo">
+    <div class="card"><div class="card-hd"><div><div class="card-t">Financial · Key performance indicators</div><div style="font-size:11px;color:var(--tmu);margin-top:3px">Financial Physical <em>not yet assessed</em> · cross-domain signals only · full scoring Q3 2026</div></div><button class="open-adv-btn" onclick="openAdviser('cfo')">✦ Open Financial Adviser</button></div>
+      <div class="dt-scroll"><table class="dt-table" id="cfo-table"><thead><tr><th>Metric</th><th>Current</th><th>Benchmark</th><th>Status</th><th>EV impact</th></tr></thead><tbody id="cfo-body"><tr><td style="font-weight:500">Days to close (monthly books)</td><td>12 days</td><td style="color:var(--tmu)">≤5 days</td><td><span class="rpill r-flag">High risk</span></td><td style="font-weight:500;color:var(--dng)">−0.15x</td></tr><tr><td style="font-weight:500">Forecast accuracy</td><td>71%</td><td style="color:var(--tmu)">≥85%</td><td><span class="rpill r-flag">Below benchmark</span></td><td style="font-weight:500;color:var(--dng)">−0.10x</td></tr><tr><td style="font-weight:500">Revenue concentration (top 3)</td><td>24%</td><td style="color:var(--tmu)">&lt;15%</td><td><span class="rpill r-flag">Concentrated</span></td><td style="font-weight:500;color:var(--dng)">−0.15x</td></tr><tr><td style="font-weight:500">Gross margin</td><td>78%</td><td style="color:var(--tmu)">75–80%</td><td><span class="rpill r-ok">In range</span></td><td style="font-weight:500;color:var(--tmu)">Neutral</td></tr><tr><td style="font-weight:500">EBITDA margin</td><td>20%</td><td style="color:var(--tmu)">18–25%</td><td><span class="rpill r-ok">In range</span></td><td style="font-weight:500;color:var(--tmu)">Neutral</td></tr><tr><td style="font-weight:500">Cash conversion cycle</td><td>45 days</td><td style="color:var(--tmu)">≤30 days</td><td><span class="rpill r-flag">Above benchmark</span></td><td style="font-weight:500;color:var(--dng)">−0.10x</td></tr><tr><td style="font-weight:500">KPI governance maturity</td><td>Low</td><td style="color:var(--tmu)">Medium+</td><td><span class="rpill r-flag">Flagged</span></td><td style="font-weight:500;color:var(--dng)">−0.10x</td></tr></tbody></table></div>
+    </div>
+  </div>
+
+  <!-- ── COO DOMAIN ── -->
+  <div class="domain-sec" id="sec-coo">
+    <div class="card"><div class="card-hd"><div><div class="card-t">Operations · Process &amp; automation gaps</div><div style="font-size:11px;color:var(--tmu);margin-top:3px">Process Physical <em>not yet assessed</em> · estimated signals · full scoring Q2 2026</div></div><button class="open-adv-btn" onclick="openAdviser('coo')">✦ Open Operations Adviser</button></div>
+      <div class="dt-scroll"><table class="dt-table" id="coo-table"><thead><tr><th>Workflow</th><th>Automation %</th><th>Manual hrs/wk</th><th>Automation ROI</th><th>Owner</th></tr></thead><tbody id="coo-body"><tr><td style="font-weight:500">Customer onboarding</td><td><span style="color:var(--dng);font-weight:500">15%</span></td><td>8.5 hrs</td><td><span style="font-size:11px;font-weight:500;color:var(--suc)">High</span></td><td style="font-size:11px;color:var(--tmu)">COO / CTO</td></tr><tr><td style="font-weight:500">Invoice reconciliation</td><td><span style="color:var(--dng);font-weight:500">0%</span></td><td>6.0 hrs</td><td><span style="font-size:11px;font-weight:500;color:var(--suc)">High</span></td><td style="font-size:11px;color:var(--tmu)">CFO / COO</td></tr><tr><td style="font-weight:500">Renewal reminders</td><td><span style="color:var(--wrn);font-weight:500">40%</span></td><td>3.2 hrs</td><td><span style="font-size:11px;font-weight:500;color:var(--suc)">High</span></td><td style="font-size:11px;color:var(--tmu)">CRO</td></tr><tr><td style="font-weight:500">Support ticket triage</td><td><span style="color:var(--wrn);font-weight:500">25%</span></td><td>4.8 hrs</td><td><span style="font-size:11px;font-weight:500;color:var(--wrn)">Medium</span></td><td style="font-size:11px;color:var(--tmu)">COO</td></tr><tr><td style="font-weight:500">Financial reporting</td><td><span style="color:var(--dng);font-weight:500">10%</span></td><td>12.0 hrs</td><td><span style="font-size:11px;font-weight:500;color:var(--suc)">High</span></td><td style="font-size:11px;color:var(--tmu)">CFO</td></tr><tr><td style="font-weight:500">Employee onboarding</td><td><span style="color:var(--wrn);font-weight:500">30%</span></td><td>5.5 hrs</td><td><span style="font-size:11px;font-weight:500;color:var(--wrn)">Medium</span></td><td style="font-size:11px;color:var(--tmu)">CHRO</td></tr><tr><td style="font-weight:500">Contract approvals</td><td><span style="color:var(--dng);font-weight:500">0%</span></td><td>3.8 hrs</td><td><span style="font-size:11px;font-weight:500;color:var(--wrn)">Medium</span></td><td style="font-size:11px;color:var(--tmu)">CFO / Legal</td></tr></tbody></table></div>
+    </div>
+  </div>
+
+  <!-- DECISIONS - CTO -->
+  <div class="sdp" id="dec-cto" style="display:none">
+    <div class="sdp-hd"><div><div class="sdp-title">Technology · Strategic decisions</div><div class="sdp-sub">Expand each question — or explore with the Technology Adviser</div></div><button class="open-adv-btn" onclick="openAdviser('cto')">✦ Technology Adviser</button></div>
+    <div class="dec" onclick="this.classList.toggle('open')"><div class="dec-q"><div class="dec-left"><div class="dec-num">1</div><div><div class="dec-q-text">Can and should we rationalize our business application portfolio?</div><div class="dec-meta">14 apps · 4 redundant · $180K annual overlap</div></div></div><div class="dec-right"><span class="dec-tag t-opp">+0.4x potential</span><span class="dec-chev">▾</span></div></div>
+      <div class="dec-body"><div class="dec-grid"><div><div class="col-t pro">✓ The case for doing it</div><ul class="dec-list"><li><span class="ldot pro"></span>Eliminates $180K redundant licensing — $1.08M value at 6x</li><li><span class="ldot pro"></span>Reduces integration surface, lowering architecture complexity score</li><li><span class="ldot pro"></span>Creates headroom for AI investment without adding net tooling cost</li></ul></div><div><div class="col-t con">✗ Risks to manage</div><ul class="dec-list"><li><span class="ldot con"></span>12–18 month execution timeline — may not align with near-term transaction</li><li><span class="ldot con"></span>Migration disruption can spike support tickets and impact health scores</li></ul></div></div>
+        <div class="ev-row"><div class="ev-box"><div class="ev-box-lbl">Compression relief</div><div class="ev-box-val cs">−0.4x</div><div class="ev-box-note">Architecture score drops 1.2pts</div></div><div class="ev-box"><div class="ev-box-lbl">Combined EV impact</div><div class="ev-box-val cs">+$1.7M</div><div class="ev-box-note">At 6x if fully executed</div></div></div>
+        <div class="dec-explore"><button class="open-adv-btn" onclick="openAdviser('cto');event.stopPropagation()">✦ Explore with Technology Adviser →</button></div></div></div>
+    <div class="dec" onclick="this.classList.toggle('open')"><div class="dec-q"><div class="dec-left"><div class="dec-num">2</div><div><div class="dec-q-text">Can and should we migrate away from our current cloud infrastructure?</div><div class="dec-meta">$22K/mo · 41% waste · Redshift at 18% utilization</div></div></div><div class="dec-right"><span class="dec-tag t-risk">High complexity</span><span class="dec-chev">▾</span></div></div>
+      <div class="dec-body"><div class="dec-grid"><div><div class="col-t pro">✓ The case for doing it</div><ul class="dec-list"><li><span class="ldot pro"></span>Right-sizing eliminates ~$9K/mo — $648K at 6x with 3–6 month timeline</li><li><span class="ldot pro"></span>Modern infrastructure directly improves architecture maturity score</li></ul></div><div><div class="col-t con">✗ Risks to manage</div><ul class="dec-list"><li><span class="ldot con"></span>Full migration is 12–24 months — right-size first captures 60–70% of savings</li><li><span class="ldot con"></span>Cutover downtime hits Vantage Partners (9 days) health score</li></ul></div></div>
+        <div class="dec-explore"><button class="open-adv-btn" onclick="startGuidedInChat();event.stopPropagation()">✦ Plan this with Technology Adviser — guided scenario →</button></div></div></div>
+    <div class="dec" onclick="this.classList.toggle('open')"><div class="dec-q"><div class="dec-left"><div class="dec-num">3</div><div><div class="dec-q-text">Can and should we accelerate AI and automation adoption?</div><div class="dec-meta">Zero ML in production · +1.2x expansion · largest single lever</div></div></div><div class="dec-right"><span class="dec-tag t-opp">+1.2x opportunity</span><span class="dec-chev">▾</span></div></div>
+      <div class="dec-body"><div class="dec-grid"><div><div class="col-t pro">✓ The case for doing it</div><ul class="dec-list"><li><span class="ldot pro"></span>Largest single value lever in the full assessment</li><li><span class="ldot pro"></span>Automation expands EBITDA margin without headcount growth</li></ul></div><div><div class="col-t con">✗ Risks to manage</div><ul class="dec-list"><li><span class="ldot con"></span>Data reliability issues limit AI effectiveness — fix first</li><li><span class="ldot con"></span>Wrong workflow automation first creates resistance to broader rollout</li></ul></div></div>
+        <div class="ev-row"><div class="ev-box"><div class="ev-box-lbl">Expansion potential</div><div class="ev-box-val cs">+1.2x</div><div class="ev-box-note">Largest single opportunity</div></div><div class="ev-box"><div class="ev-box-lbl">EV at 6x</div><div class="ev-box-val cs">+$2.9M</div><div class="ev-box-note">If ceiling partially captured</div></div></div>
+        <div class="dec-explore"><button class="open-adv-btn" onclick="openAdviser('cto');event.stopPropagation()">✦ Explore with Technology Adviser →</button></div></div></div>
+  </div>
+
+  <!-- DECISIONS - CRO -->
+  <div class="sdp" id="dec-cro" style="display:none">
+    <div class="sdp-hd"><div><div class="sdp-title">Revenue · Strategic decisions</div><div class="sdp-sub">Renewal strategy · churn risk · pricing model</div></div><button class="open-adv-btn" onclick="openAdviser('cro')">✦ Revenue Adviser</button></div>
+    <div class="dec" onclick="this.classList.toggle('open')"><div class="dec-q"><div class="dec-left"><div class="dec-num">1</div><div><div class="dec-q-text">Can and should we restructure how we manage renewals and at-risk accounts?</div><div class="dec-meta">3 accounts critical · $3.05M ARR at risk ≤45 days</div></div></div><div class="dec-right"><span class="dec-tag t-opp">+0.4x potential</span><span class="dec-chev">▾</span></div></div>
+      <div class="dec-body"><div class="dec-grid"><div><div class="col-t pro">✓ The case for doing it</div><ul class="dec-list"><li><span class="ldot pro"></span>Saving Vantage Partners alone adds $9.9M EV at 6x — highest single ROI action in the assessment</li><li><span class="ldot pro"></span>Health scoring flags risk 60–90 days before the P&amp;L reflects it</li></ul></div><div><div class="col-t con">✗ Risks to manage</div><ul class="dec-list"><li><span class="ldot con"></span>Vantage Partners (9 days) — product fix (Technology team) has higher impact than relationship play</li><li><span class="ldot con"></span>Formal renewal process requires CSM capacity — may need headcount investment</li></ul></div></div>
+        <div class="ac"><div class="ac-step"><strong>$3.05M</strong>ARR at risk</div><div class="ac-arr">→</div><div class="ac-step"><strong>$763K</strong>Est. churn</div><div class="ac-arr">→</div><div class="ac-step"><strong>× 6x</strong>baseline</div><div class="ac-arr">→</div><div class="ac-res"><strong>−0.4x</strong>EV compression</div></div>
+        <div class="dec-explore"><button class="open-adv-btn" onclick="openAdviser('cro');event.stopPropagation()">✦ Explore with Revenue Adviser →</button></div></div></div>
+  </div>
+
+  <!-- DECISIONS - CHRO -->
+  <div class="sdp" id="dec-chro" style="display:none">
+    <div class="sdp-hd"><div><div class="sdp-title">People · Strategic decisions</div><div class="sdp-sub">Talent stability · key-person risk · compensation gaps</div></div><button class="open-adv-btn" onclick="openAdviser('chro')">✦ People Adviser</button></div>
+    <div class="dec" onclick="this.classList.toggle('open')"><div class="dec-q"><div class="dec-left"><div class="dec-num">1</div><div><div class="dec-q-text">Can and should we restructure leadership roles to reduce key-person dependency?</div><div class="dec-meta">2 CXO roles single-threaded · no successors identified · −0.3x compression</div></div></div><div class="dec-right"><span class="dec-tag t-opp">+0.3x potential</span><span class="dec-chev">▾</span></div></div>
+      <div class="dec-body"><div class="dec-grid"><div><div class="col-t pro">✓ The case for doing it</div><ul class="dec-list"><li><span class="ldot pro"></span>Succession documentation alone removes diligence risk — buyers discount opacity, not actual gaps</li><li><span class="ldot pro"></span>Retention packages for tech leadership are low-cost relative to the compression they prevent</li></ul></div><div><div class="col-t con">✗ Risks to manage</div><ul class="dec-list"><li><span class="ldot con"></span>Framing matters — succession perceived as replacement can trigger the departure it's meant to prevent</li></ul></div></div>
+        <div class="ev-row"><div class="ev-box"><div class="ev-box-lbl">Compression relief</div><div class="ev-box-val cs">+0.3x</div><div class="ev-box-note">Key-person risk reduction</div></div><div class="ev-box"><div class="ev-box-lbl">First action</div><div class="ev-box-val cn" style="font-size:15px">Document first</div><div class="ev-box-note">Runbooks · high DD value · low cost</div></div></div>
+        <div class="dec-explore"><button class="open-adv-btn" onclick="openAdviser('chro');event.stopPropagation()">✦ Explore with People Adviser →</button></div></div></div>
+  </div>
+
+  <div class="disc">Not valuation advisory. Vantage provides decision-support intelligence only. The Frictionless Rating (numeric score) is an Enterprise-tier feature not yet available. Word-based Current Assessments reflect qualitative synthesis from completed Physicals only. All outputs should be reviewed by qualified advisors before use in transactions.</div>
+
+</div><!-- /main -->
+
+<footer>
+  <div class="ft-brand">Vantage by Capacera</div>
+  <div class="ft-copy">Frictionless Physical · Enterprise Value Intelligence · Prototype · Confidential © 2026 Capacera, Inc.</div>
+</footer>
+
+
+<!-- end Vantage Enterprise Demo fragment --></div><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!---->
