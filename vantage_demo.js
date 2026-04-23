@@ -1457,8 +1457,12 @@ function ghlReady(fn){
 }
 
 function _ensureShells(){
-  // Inject sim tray + open button if missing from HTML
-  if(!document.getElementById('simTray')){
+  // Check for the specific inner IDs that the JS actually uses — GHL can
+  // render outer shells but strip inner elements, so check leaf nodes.
+  if(!document.getElementById('simLevers')){
+    // Remove any broken outer shell before re-injecting
+    var oldTray=document.getElementById('simTray');if(oldTray)oldTray.parentNode.removeChild(oldTray);
+    var oldBtn=document.getElementById('simOpenBtn');if(oldBtn)oldBtn.parentNode.removeChild(oldBtn);
     document.body.insertAdjacentHTML('beforeend',
       '<div id="simTray" class="sim-tray">'+
         '<div class="sim-tray-hd"><span class="sim-tray-t">Remediation Simulator</span><button class="sim-close-btn" onclick="closeSimTray()">&#x2715;</button></div>'+
@@ -1476,8 +1480,10 @@ function _ensureShells(){
       '<button id="simOpenBtn" class="sim-open-btn" onclick="openSimTray()">Simulator</button>'
     );
   }
-  // Inject adviser overlay + drawer if missing from HTML
-  if(!document.getElementById('advOverlay')){
+  if(!document.getElementById('advTitle')){
+    // Remove any broken outer shells before re-injecting
+    var oldOv=document.getElementById('advOverlay');if(oldOv)oldOv.parentNode.removeChild(oldOv);
+    var oldDr=document.getElementById('advDrawer');if(oldDr)oldDr.parentNode.removeChild(oldDr);
     document.body.insertAdjacentHTML('beforeend',
       '<div id="advOverlay" class="adv-overlay" onclick="closeAdviser()"></div>'+
       '<div id="advDrawer" class="adv-drawer">'+
@@ -1486,6 +1492,7 @@ function _ensureShells(){
           '<button class="adv-close-btn" onclick="closeAdviser()">&#x2715;</button>'+
         '</div>'+
         '<div class="adv-msgs" id="advMsgs"></div>'+
+        '<div id="quickReplyZone" style="padding:0 1.5rem .5rem;display:flex;flex-wrap:wrap;gap:6px"></div>'+
         '<div class="adv-sugg" id="advSugg" style="display:none">'+
           '<div class="adv-sugg-lbl">Suggested questions</div>'+
           '<div id="advPills" style="display:flex;flex-wrap:wrap;gap:6px"></div>'+
