@@ -1456,7 +1456,51 @@ function ghlReady(fn){
   else{document.addEventListener('DOMContentLoaded',fn)}
 }
 
+function _ensureShells(){
+  // Inject sim tray + open button if missing from HTML
+  if(!document.getElementById('simTray')){
+    document.body.insertAdjacentHTML('beforeend',
+      '<div id="simTray" class="sim-tray">'+
+        '<div class="sim-tray-hd"><span class="sim-tray-t">Remediation Simulator</span><button class="sim-close-btn" onclick="closeSimTray()">&#x2715;</button></div>'+
+        '<div class="sim-body">'+
+          '<input class="sim-search" type="text" placeholder="Filter levers\u2026" oninput="filterSim(this.value)">'+
+          '<div id="simLevers"></div>'+
+          '<div class="sim-result" style="margin-top:1rem">'+
+            '<div class="sim-r-lbl">Simulated outcome</div>'+
+            '<div class="sim-r-row"><span class="sim-r-k">New floor EV</span><span class="sim-r-v" id="sr-floor">\u2014</span></div>'+
+            '<div class="sim-r-row"><span class="sim-r-k">New ceiling EV</span><span class="sim-r-v" id="sr-ceil">\u2014</span></div>'+
+            '<div class="sim-r-row"><span class="sim-r-k">At-stake spread</span><span class="sim-r-v" id="sr-spread">\u2014</span></div>'+
+          '</div>'+
+        '</div>'+
+      '</div>'+
+      '<button id="simOpenBtn" class="sim-open-btn" onclick="openSimTray()">Simulator</button>'
+    );
+  }
+  // Inject adviser overlay + drawer if missing from HTML
+  if(!document.getElementById('advOverlay')){
+    document.body.insertAdjacentHTML('beforeend',
+      '<div id="advOverlay" class="adv-overlay" onclick="closeAdviser()"></div>'+
+      '<div id="advDrawer" class="adv-drawer">'+
+        '<div class="adv-hd">'+
+          '<div><div class="adv-ey">CXO Adviser \u00b7 Vantage AI</div><div class="adv-title" id="advTitle">Adviser</div><div class="adv-domain" id="advDomain"></div></div>'+
+          '<button class="adv-close-btn" onclick="closeAdviser()">&#x2715;</button>'+
+        '</div>'+
+        '<div class="adv-msgs" id="advMsgs"></div>'+
+        '<div class="adv-sugg" id="advSugg" style="display:none">'+
+          '<div class="adv-sugg-lbl">Suggested questions</div>'+
+          '<div id="advPills" style="display:flex;flex-wrap:wrap;gap:6px"></div>'+
+        '</div>'+
+        '<div class="adv-input-row">'+
+          '<input class="adv-input" id="advInput" type="text" placeholder="Ask a follow-up question\u2026" onkeydown="if(event.key===\'Enter\')sendToAdviser()">'+
+          '<button class="adv-send" onclick="sendToAdviser()">Send</button>'+
+        '</div>'+
+      '</div>'
+    );
+  }
+}
+
 ghlReady(function(){
+  _ensureShells();
   // Escape GHL transformed containers — move fixed-position elements to body root
   ['simTray','simOpenBtn','advOverlay','advDrawer'].forEach(function(id){
     var el=document.getElementById(id);
