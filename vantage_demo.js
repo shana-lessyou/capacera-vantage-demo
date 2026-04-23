@@ -1391,12 +1391,12 @@ function _tourCard(stepIdx,targetEl){
     '<div class="tc-prog">Step '+(stepIdx+1)+' of '+tourSteps.length+'</div>'+
     '<div class="tc-title">'+s.title+'</div>'+
     '<div class="tc-text">'+s.text+'</div>'+
-    (s.cta?'<div class="tc-ctas"><a href="'+TOUR_PHYSICAL_URL+'" class="tc-cta1">Start your free Physical →</a><a href="'+TOUR_PARTNER_URL+'" class="tc-cta2">Become a design partner →</a></div>':'')+
+    (s.cta?'<div class="tc-ctas"><a href="'+TOUR_PHYSICAL_URL+'" class="tc-cta1" onclick="setTimeout(tourEnd,200)">Start your free Physical →</a><a href="'+TOUR_PARTNER_URL+'" class="tc-cta2" onclick="setTimeout(tourEnd,200)">Become a design partner →</a></div>':'')+
     '<div class="tc-nav">'+
       (stepIdx>0?'<button class="tc-back" onclick="tourPrev()">← Back</button>':'')+
       '<div style="margin-left:auto;display:flex;gap:8px">'+
-        '<button class="tc-exit" onclick="tourEnd()">Exit tour</button>'+
-        (!isLast?'<button class="tc-fwd" onclick="tourNext()">Next →</button>':'')+
+        (!isLast?'<button class="tc-exit" onclick="tourEnd()">Exit tour</button>':'')+
+        (!isLast?'<button class="tc-fwd" onclick="tourNext()">Next →</button>':'<button class="tc-fwd" onclick="tourEnd()" style="background:var(--gold);color:var(--navy)">Close tour ✓</button>')+
       '</div>'+
     '</div>';
   card.style.display='block';
@@ -1457,10 +1457,11 @@ function ghlReady(fn){
 }
 
 function _ensureShells(){
-  // Check for the specific inner IDs that the JS actually uses — GHL can
-  // render outer shells but strip inner elements, so check leaf nodes.
+  // Always rebuild from JS — GHL HTML rendering strips inner elements
+  // unpredictably, so we own these entirely rather than trusting the paste.
+
+  // Sim tray
   if(!document.getElementById('simLevers')){
-    // Remove any broken outer shell before re-injecting
     var oldTray=document.getElementById('simTray');if(oldTray)oldTray.parentNode.removeChild(oldTray);
     var oldBtn=document.getElementById('simOpenBtn');if(oldBtn)oldBtn.parentNode.removeChild(oldBtn);
     document.body.insertAdjacentHTML('beforeend',
@@ -1480,30 +1481,30 @@ function _ensureShells(){
       '<button id="simOpenBtn" class="sim-open-btn" onclick="openSimTray()">Simulator</button>'
     );
   }
-  if(!document.getElementById('advTitle')){
-    // Remove any broken outer shells before re-injecting
-    var oldOv=document.getElementById('advOverlay');if(oldOv)oldOv.parentNode.removeChild(oldOv);
-    var oldDr=document.getElementById('advDrawer');if(oldDr)oldDr.parentNode.removeChild(oldDr);
-    document.body.insertAdjacentHTML('beforeend',
-      '<div id="advOverlay" class="adv-overlay" onclick="closeAdviser()"></div>'+
-      '<div id="advDrawer" class="adv-drawer">'+
-        '<div class="adv-hd">'+
-          '<div><div class="adv-ey">CXO Adviser \u00b7 Vantage AI</div><div class="adv-title" id="advTitle">Adviser</div><div class="adv-domain" id="advDomain"></div></div>'+
-          '<button class="adv-close-btn" onclick="closeAdviser()">&#x2715;</button>'+
-        '</div>'+
-        '<div class="adv-msgs" id="advMsgs"></div>'+
-        '<div id="quickReplyZone" style="padding:0 1.5rem .5rem;display:flex;flex-wrap:wrap;gap:6px"></div>'+
-        '<div class="adv-sugg" id="advSugg" style="display:none">'+
-          '<div class="adv-sugg-lbl">Suggested questions</div>'+
-          '<div id="advPills" style="display:flex;flex-wrap:wrap;gap:6px"></div>'+
-        '</div>'+
-        '<div class="adv-input-row">'+
-          '<input class="adv-input" id="advInput" type="text" placeholder="Ask a follow-up question\u2026" onkeydown="if(event.key===\'Enter\')sendToAdviser()">'+
-          '<button class="adv-send" onclick="sendToAdviser()">Send</button>'+
-        '</div>'+
-      '</div>'
-    );
-  }
+
+  // Adviser — always remove and recreate so quickReplyZone and all inner
+  // IDs are guaranteed to exist (GHL strips them on every HTML paste).
+  var oldOv=document.getElementById('advOverlay');if(oldOv)oldOv.parentNode.removeChild(oldOv);
+  var oldDr=document.getElementById('advDrawer');if(oldDr)oldDr.parentNode.removeChild(oldDr);
+  document.body.insertAdjacentHTML('beforeend',
+    '<div id="advOverlay" class="adv-overlay" onclick="closeAdviser()"></div>'+
+    '<div id="advDrawer" class="adv-drawer">'+
+      '<div class="adv-hd">'+
+        '<div><div class="adv-ey">CXO Adviser \u00b7 Vantage AI</div><div class="adv-title" id="advTitle">Adviser</div><div class="adv-domain" id="advDomain"></div></div>'+
+        '<button class="adv-close-btn" onclick="closeAdviser()">&#x2715;</button>'+
+      '</div>'+
+      '<div class="adv-msgs" id="advMsgs"></div>'+
+      '<div id="quickReplyZone" style="padding:0 1.5rem .5rem;display:flex;flex-wrap:wrap;gap:6px"></div>'+
+      '<div class="adv-sugg" id="advSugg" style="display:none">'+
+        '<div class="adv-sugg-lbl">Suggested questions</div>'+
+        '<div id="advPills" style="display:flex;flex-wrap:wrap;gap:6px"></div>'+
+      '</div>'+
+      '<div class="adv-input-row">'+
+        '<input class="adv-input" id="advInput" type="text" placeholder="Ask a follow-up question\u2026" onkeydown="if(event.key===\'Enter\')sendToAdviser()">'+
+        '<button class="adv-send" onclick="sendToAdviser()">Send</button>'+
+      '</div>'+
+    '</div>'
+  );
 }
 
 ghlReady(function(){
